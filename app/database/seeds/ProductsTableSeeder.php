@@ -1,0 +1,30 @@
+<?php
+
+// Composer: "fzaninotto/faker": "v1.3.0"
+use Faker\Factory as Faker;
+
+class ProductsTableSeeder extends Seeder {
+
+    public function run()
+    {
+
+        $faker = Faker::create();
+
+	    Product::truncate();
+        foreach(range(1, 100) as $index)
+        {
+            Product::create(
+	            array(
+		            'name'=>$faker->name,
+		            'price'=>$faker->numberBetween(200,5000),
+		            'status'=>$faker->numberBetween(0,2),
+		            'stock'=>$faker->numberBetween(50,100),
+		            'description'=>$faker->text(),
+		            'category_id'=>$faker->numberBetween(1,10),
+		            'created_at'=>date(DB_TIME_FORMAT,time()),
+		            'updated_at'=>date(DB_TIME_FORMAT,time()),
+	            )
+            );
+        }
+    }
+}
