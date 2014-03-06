@@ -31,7 +31,7 @@ class Cart
 		$this->_cartContents = Session::get('cartContents');
 
 		if (!$this->_cartContents) {
-			$this->_cartContents = array('totalItems' => 0);
+			$this->_cartContents = array('totalItems' => 0,'cartTotal'=>0);
 		}
 	}
 
@@ -170,7 +170,7 @@ class Cart
 		return true;
 	}
 
-	public function total()
+	public function totalPrice()
 	{
 		return $this->_cartContents['cartTotal'];
 	}
@@ -195,8 +195,8 @@ class Cart
 		$cart = ($newest_first) ? array_reverse($this->_cartContents) : $this->_cartContents;
 
 		// Remove these so they don't create a problem when showing the cart table
-//		unset($cart['totalItems']);
-//		unset($cart['cartTotal']);
+		unset($cart['totalItems']);
+		unset($cart['cartTotal']);
 
 		return $cart;
 	}

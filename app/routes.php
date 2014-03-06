@@ -32,4 +32,6 @@ Route::get('/', function () {
 });
 
 Route::resource('admins', 'AdminsController');
-
+Route::resource('products', 'ProductsController');
+Route::resource('categories', 'CategoriesController');
+Route::resource('carts', 'CartsController');
