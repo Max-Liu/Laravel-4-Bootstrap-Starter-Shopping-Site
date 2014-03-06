@@ -8,7 +8,7 @@
 		"way/generators": "2.*",
 		"raveren/kint": "dev-1.0.0-wip",
 		"barryvdh/laravel-ide-helper": "1.*",
-        "frozennode/administrator": "dev-master"
+        "fzaninotto/faker": "v1.3.0"
 	},
 	"autoload": {
 		"classmap": [
