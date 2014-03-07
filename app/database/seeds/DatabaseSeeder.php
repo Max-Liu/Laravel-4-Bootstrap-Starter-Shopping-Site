@@ -11,21 +11,8 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		Eloquent::unguard();
-		$this->call('UserTableSeeder');
+		$this->call('UsersTableSeeder');
 		$this->call('ProductsTableSeeder');
 		$this->call('CategoriesTableSeeder');
 	}
-
-}
-
-class UserTableSeeder extends Seeder
-{
-
-	public function run()
-	{
-		DB::table('user')->delete();
-
-		User::create(array('email' => 'foo@bar.com'));
-	}
-
 }

@@ -11,8 +11,10 @@
 
 	<title>Dashboard Template for Bootstrap</title>
 
-	<!-- Bootstrap core CSS -->
-	<link href="{{{asset('/bower_components/bootstrap/dist/css/bootstrap.min.css')}}}" rel="stylesheet">
+    <!-- global CSS -->
+    @section('css')
+    <link href="{{{asset('/bower_components/bootstrap/dist/css/bootstrap.min.css')}}}" rel="stylesheet">
+    @show
 
 	<!-- Custom styles for this template -->
 	<!--	<link href="dashboard.css" rel="stylesheet">-->
@@ -28,8 +30,12 @@
 </head>
 
 <body>
+@if (!Request::is('user/login'))
+    @include('partials.header')
+@endif
+
 <div class="container-fluid">
-	@yield('content')
+    @yield('content')
 </div>
 
 </body>
