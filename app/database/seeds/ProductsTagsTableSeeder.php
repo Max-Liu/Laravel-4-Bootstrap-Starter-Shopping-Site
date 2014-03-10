@@ -3,21 +3,20 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 
-class CategoriesTableSeeder extends Seeder {
+class ProductsTagsTableSeeder extends Seeder {
 
     public function run()
     {
         $faker = Faker::create();
 
-	    Category::truncate();
-
-        foreach(range(1, 10) as $index)
+        foreach(range(1, 100) as $index)
         {
-            Category::create(array(
-                'name'=>$faker->name,
+            ProductsTag::create([
+                'product_id'=>$faker->numberBetween(1,100),
+                'tag_id'=>$faker->numberBetween(1,10),
                 'created_at'=>date(DB_TIME_FORMAT,time()),
                 'updated_at'=>date(DB_TIME_FORMAT,time())
-            ));
+            ]);
         }
     }
 }

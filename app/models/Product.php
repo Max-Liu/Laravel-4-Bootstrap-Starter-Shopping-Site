@@ -8,6 +8,7 @@ class Product extends \Eloquent {
 		return $this->belongsTo('category');
 	}
 
-
-
+    public function tags(){
+        return $this->belongsToMany('tag','products_tags','product_id','tag_id');
+    }
 }
