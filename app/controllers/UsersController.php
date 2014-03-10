@@ -91,6 +91,9 @@ class UsersController extends \BaseController {
         $password = Input::get('password');
         if(Auth::attempt(array('email'=>$email,'password'=>$password))){
             return Redirect::intended();
+        }else{
+            Session::flash('error','密码错误');
+            return Redirect::to('/user/login');
         }
     }
 
