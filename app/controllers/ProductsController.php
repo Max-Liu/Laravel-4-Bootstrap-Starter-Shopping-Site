@@ -11,7 +11,6 @@ class ProductsController extends \BaseController {
 	{
 		$data = array();
         $products = Product::paginate(15);
-//		var_dump(URL::asset('ttt'));exit;
 
 
 		$this->layout->content = View::make('products.list',compact('products'));

@@ -5,11 +5,15 @@ Route::resource('carts', 'CartsController');
 Route::resource('users', 'UsersController');
 Route::resource('tags', 'TagsController');
 Route::resource('orders', 'OrdersController');
+Route::resource('address', 'addressController');
 
 
 // User reset routes
-Route::get('user/reset','RemindersController@getRemind');
-Route::post('user/reset','RemindersController@postRemind');
+Route::get('user/remind','RemindersController@getRemind');
+Route::post('user/remind','RemindersController@postRemind');
+Route::get('user/reset/{token}','RemindersController@getReset');
+Route::post('user/reset','RemindersController@PostReset');
+
 
 Route::get('user/login','UsersController@getLogin');
 Route::get('user/logout','UsersController@getLogout');
@@ -46,7 +50,6 @@ if (Config::get('database.log', false))
         // Insert bindings into query
         $query = str_replace(array('%', '?'), array('%%', '%s'), $query);
         $query = vsprintf($query, $bindings);
-
         Log::info($query, $data);
     });
 }

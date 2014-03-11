@@ -27,6 +27,11 @@
                 </tbody>
             </table>
             <div>
+                {{Form::open(array('route' => array('orders.store'),'method'=>'POST'))}}
+                {{Form::submit('下单',array('class'=>'btn btn-default'))}}
+                {{ Form::close() }}
+            </div>
+            <div>
                 {{Form::open(array('route' => array('carts.destroy','destroy'),'method'=>'DELETE'))}}
                 {{Form::submit('清空购物车',array('class'=>'btn btn-default'))}}
                 {{ Form::close() }}

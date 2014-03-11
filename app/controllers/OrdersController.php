@@ -9,7 +9,8 @@ class OrdersController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        $orders = Order::where('user_id','=',$this->userId)->orderBy('created_at','desc')->get();
+        $this->layout->content = View::make('orders.list',compact('orders'));
 	}
 
 	/**
@@ -29,7 +30,9 @@ class OrdersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $order = new Order();
+        $order->newOrder();
+        return Redirect::route('orders.index');
 	}
 
 	/**
@@ -40,7 +43,9 @@ class OrdersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+       $order = Order::find($id);
+       $orderItems =  OrderItem::where('order_id','=',$id)->get();
+       $this->layout->content = View::make('orders.info',compact('orderItems','order'));
 	}
 
 	/**
