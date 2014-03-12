@@ -13,7 +13,8 @@
 
     <!-- global CSS -->
     @section('css')
-    <link href="{{{asset('/bower_components/bootstrap/dist/css/bootstrap.min.css')}}}" rel="stylesheet">
+    <link href="{{asset('/bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/asset/main.css')}}" rel="stylesheet">
     @show
 
 	<!-- Custom styles for this template -->
@@ -26,17 +27,23 @@
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
 	<![endif]-->
 </head>
 
 <body>
-@if (!Request::is('user/login'))
-    @include('partials.header')
-@endif
+<div class="navbar-wrapper">
+    <div class="container">
+        @if (!Request::is('user/login'))
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
-<div class="container-fluid">
-    @yield('content')
+            @include('partials.header')
+        </div>
+        @endif
+        <div class="container-fluid">
+            @yield('content')
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
