@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call('ProductsTagsTableSeeder');
         $this->call('OrdersTableSeeder');
         $this->call('OrderItemsTableSeeder');
-        $this->call('UserShippingTableSeeder');
+        $this->call('AddressesTableSeeder');
 	}
 }

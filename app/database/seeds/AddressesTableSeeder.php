@@ -3,7 +3,7 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use Faker\Factory as Faker;
 
-class UserShippingTableSeeder extends Seeder {
+class AddressesTableSeeder extends Seeder {
 
     public function run()
     {
@@ -11,16 +11,15 @@ class UserShippingTableSeeder extends Seeder {
 
         foreach(range(1, 200) as $index)
         {
-            UserShipping::create([
+            Address::create([
                 'name'=>$faker->name,
                 'phone'=>$faker->phoneNumber,
                 'address'=>$faker->address,
                 'city'=>$faker->city,
-                'country'=>$faker->country,
                 'postcode'=>$faker->postcode,
                 'province'=>$faker->citySuffix,
                 'is_default'=>$faker->numberBetween(0,1),
-                'user_id'=>$faker->numberBetween(1,100),
+                'user_id'=>$faker->numberBetween(1,10),
                 'created_at'=>date(DB_TIME_FORMAT,time()),
                 'updated_at'=>date(DB_TIME_FORMAT,time()),
             ]);

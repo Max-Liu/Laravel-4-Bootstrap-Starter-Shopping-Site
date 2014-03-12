@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserShippingsTable extends Migration {
+class CreateAddressTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateUserShippingsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('user_shippings', function(Blueprint $table) {
+        Schema::create('addresses', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('phone');
             $table->longText('address');
             $table->string('city');
-            $table->string('country');
             $table->string('postcode');
             $table->string('province');
             $table->tinyInteger('is_default');
@@ -35,7 +34,7 @@ class CreateUserShippingsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('user_shippings');
+	    Schema::drop('addresses');
 	}
 
 }
