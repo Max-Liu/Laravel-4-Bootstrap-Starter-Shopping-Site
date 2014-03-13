@@ -10,7 +10,7 @@ class AddressesController extends \BaseController
      */
     public function index()
     {
-        $addressList = Address::where('user_id', '=', $this->userId)->paginate(5);
+        $addressList = Address::where('user_id', '=', $this->userId)->orderBy('id','desc')->paginate(5);
 
         $this->layout->content = View::make('address.list', compact('addressList'));
     }
@@ -106,4 +106,14 @@ class AddressesController extends \BaseController
         return Redirect::to(route('address.index'));
     }
 
+    public function setDefault($id){
+        $address = Address::find($id);
+
+        if ($address->exists AND $address->user_id == $this->userId){
+            Address::where('user_id','=',$this->userId)->update(array('is_default'=>0));
+            $address->is_default = 1;
+            $address->save();
+        }
+        return Redirect::to(route('address.index'));
+    }
 }

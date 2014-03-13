@@ -36,10 +36,19 @@
     <div class="container">
         @if (!Request::is('user/login'))
         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-
             @include('partials.header')
         </div>
         @endif
+
+        <div>
+            @if (Session::get('error'))
+            <li class="bg-danger">{{Session::get('error')}}</li>
+            @endif
+            @foreach($errors->all('<li class="bg-danger">:message</li>') as $message)
+                    {{$message}}
+            @endforeach
+        </div>
+
         <div class="container-fluid">
             @yield('content')
         </div>

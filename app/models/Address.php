@@ -1,7 +1,7 @@
 <?php
 
 class Address extends \Eloquent {
-    protected $fillable = ['name','phone','address','city','postcode'];
+    protected $fillable = ['name','phone','address','city','postcode','is_default'];
 
 
 
@@ -14,11 +14,14 @@ class Address extends \Eloquent {
     );
 
     public function user(){
-        return $this->belongsTo('user');
+        return $this->belongsTo('User');
     }
+
+
     public function createNewAddress($input){
 
         $validator = Validator::make($input,$this->validationRole);
+
 
         if ($validator->fails()){
             return $validator;

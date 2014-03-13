@@ -16,11 +16,17 @@
                 </thead>
                 <tbody>
                 @foreach ($orders as $order)
+
                 <tr>
                     <td>{{$order->id}}</td>
-                    <td>{{$order->status}}</td>
+                    <td>{{$order::getOrderStatusStr($order->status)}}</td>
                     <td>{{$order->price_total}}</td>
-                    <td>{{$order->ship_to}}</td>
+                    <td>
+                        @if ($order->address)
+                            {{$order->address->name}}
+                        @endif
+                    </td>
+
                     <td>{{$order->created_at}}</td>
                     <td><a href="{{route('orders.show',$order->id)}}">详情</a></td>
                 </tr>

@@ -27,9 +27,8 @@
                 </tbody>
             </table>
             <div>
-                {{Form::open(array('route' => array('orders.store'),'method'=>'POST'))}}
-                {{Form::submit('下单',array('class'=>'btn btn-default'))}}
-                {{ Form::close() }}
+                <a href="/checkout" class="btn btn-default">去结账</a>
+
             </div>
             <div>
                 {{Form::open(array('route' => array('carts.destroy','destroy'),'method'=>'DELETE'))}}

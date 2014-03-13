@@ -31,6 +31,7 @@
                     {{Form::open(array('url' =>route('address.destroy',$address->id), 'method' => 'delete'))}}
                     {{Form::submit('删除',array('class'=>'btn btn-default'))}}
                     {{Form::close()}}
+                    <a class="btn btn-default" href="{{url('address/default',$address->id)}}">设为默认</a>
                 </td>
             </tr>
             @endforeach

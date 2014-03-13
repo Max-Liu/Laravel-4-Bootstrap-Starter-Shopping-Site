@@ -1,8 +1,5 @@
 @section('content')
 
-@foreach($errors->all('<li>:message</li>') as $message)
-{{$message}}
-@endforeach
 <form class="form-signin" role="form" action="{{route('address.store')}}" method="post">
     <h2 class="form-signin-heading">新地址</h2>
     <input type="text" class="form-control" placeholder="姓名" required autofocus name="name">
