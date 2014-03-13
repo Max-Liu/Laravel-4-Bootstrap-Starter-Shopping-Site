@@ -9,23 +9,24 @@ Route::group(array('before'=>'auth'),function(){
     Route::resource('orders', 'OrdersController');
     Route::resource('address', 'AddressesController');
 
-
-// User reset routes
-    Route::get('user/remind','RemindersController@getRemind');
-    Route::post('user/remind','RemindersController@postRemind');
-    Route::get('user/reset/{token}','RemindersController@getReset');
-    Route::post('user/reset','RemindersController@PostReset');
-
-
-
+    Route::get('address/default/{id}','AddressesController@setDefault');
+    Route::get('checkout','OrdersController@getCheckout');
     Route::get('/',function(){
         return Redirect::to('/products');
     });
 });
 
+
+// User reset routes
+Route::get('user/remind','RemindersController@getRemind');
+Route::post('user/remind','RemindersController@postRemind');
+Route::get('user/reset/{token}','RemindersController@getReset');
+Route::post('user/reset','RemindersController@PostReset');
+
 Route::get('user/login','UsersController@getLogin');
 Route::get('user/logout','UsersController@getLogout');
 Route::post('user/login','UsersController@postLogin');
+
 
 
 //Route::get('user/reset/{token}', 'UserController@getReset');
