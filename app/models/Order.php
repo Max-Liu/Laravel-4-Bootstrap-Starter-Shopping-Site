@@ -2,10 +2,15 @@
 
 class Order extends \Eloquent
 {
-    protected $fillable = ['*'];
+    protected $fillable = ['status','price_total','ship_to'];
 
     const UNPAID = 0;
     const PAID = 1;
+
+
+    public function address(){
+        return $this->hasOne('address','id','ship_to');
+    }
 
 
     public function user()
@@ -29,13 +34,13 @@ class Order extends \Eloquent
     }
 
 
-    public function newOrder()
+    public function newOrder($shipTo)
     {
 
-        $order = new Order();
-        $order->user_id = Auth::user()->getAuthIdentifier();
-        $order->status = self::UNPAID;
-        $order->save();
+        $this->user_id = Auth::user()->getAuthIdentifier();
+        $this->status = self::UNPAID;
+        $this->ship_to = $shipTo;
+        $this->save();
 
 
         $cart = new Cart();
@@ -52,7 +57,7 @@ class Order extends \Eloquent
 
         foreach ($productList as $orderProduct) {
             $orderItem = new OrderItem();
-            $orderItem->order_id = $order->id;
+            $orderItem->order_id = $this->id;
             $orderItem->product_id = $orderProduct->id;
             $orderItem->name = $orderProduct->name;
             $orderItem->price = $orderProduct->price;
@@ -61,7 +66,7 @@ class Order extends \Eloquent
             $orderPriceTotal = +$orderItem->price * $orderItem->qty;
         }
 
-        $order->price_total = $orderPriceTotal;
-        $order->save();
+        $this->price_total = $orderPriceTotal;
+        $this->save();
     }
 }

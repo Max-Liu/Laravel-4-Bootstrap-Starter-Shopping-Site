@@ -9,7 +9,7 @@ class OrdersController extends \BaseController {
 	 */
 	public function index()
 	{
-        $orders = Order::where('user_id','=',$this->userId)->orderBy('created_at','desc')->get();
+        $orders = Order::with(['address'])->where('user_id','=',$this->userId)->orderBy('created_at','desc')->get();
         $this->layout->content = View::make('orders.list',compact('orders'));
 	}
 
@@ -30,9 +30,20 @@ class OrdersController extends \BaseController {
 	 */
 	public function store()
 	{
-        $order = new Order();
-        $order->newOrder();
-        return Redirect::route('orders.index');
+        $input = Input::only(['ship_to']);
+
+        if($address = Address::find($input['ship_to'])){
+            if($address->user_id != $this->userId){
+              return $this->responses('该地址不属于用户',true,array(),url('checkout'));
+            }
+
+            $order = new Order();
+            $order->newOrder($input['ship_to']);
+            return Redirect::route('orders.index');
+
+        }else{
+            return $this->responses('该地址不存在',true,array(),url('checkout'));
+        }
 	}
 
 	/**
@@ -80,5 +91,17 @@ class OrdersController extends \BaseController {
 	{
 		//
 	}
+
+    public function getCheckout(){
+
+        $cart = new Cart();
+        $cartList = $cart->contents();
+        $totalItems = $cart->totalItems();
+        $totalPrice = $cart->totalPrice();
+        $address = Address::where('is_default','=',1)->where('user_id','=',$this->userId)->first();
+
+
+        $this->layout->content = View::make('orders.checkout',compact('cartList','address','totalItems','totalPrice'));
+    }
 
 }
