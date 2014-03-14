@@ -6,9 +6,10 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"way/generators": "2.*",
-		"raveren/kint": "dev-1.0.0-wip",
 		"barryvdh/laravel-ide-helper": "1.*",
-        "fzaninotto/faker": "v1.3.0"
+        "fzaninotto/faker": "v1.3.0",
+        "intervention/image": "1.*",
+        "raveren/kint": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

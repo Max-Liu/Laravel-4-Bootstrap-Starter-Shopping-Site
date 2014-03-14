@@ -1,19 +1,17 @@
 <?php
 
-class ProductsController extends \BaseController {
+class ImagesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+
+    protected $imagePath = 'uploads/images';
 	public function index()
 	{
-		$data = array();
-        $products = Product::paginate(15);
-
-
-		$this->layout->content = View::make('products.list',compact('products'));
+		//
 	}
 
 	/**
@@ -23,7 +21,8 @@ class ProductsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        $this->responser['viewPath']= 'images.create';
+		$this->responses($this->responser);
 	}
 
 	/**
@@ -33,7 +32,16 @@ class ProductsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $input = Input::file('image');
+
+        $image = new Image;
+        $image->parent_id = 1;
+        $image->name = md5(time().$input->getClientOriginalName());
+        $image->mime_type =  $input->getClientMimeType();
+        $image->extension = $input->getClientOriginalExtension();
+        $image->size = $input->getClientSize();
+        $input->move($this->imagePath.'/',$image->name.'.'.$input->getClientOriginalExtension());
+        $image->save();
 	}
 
 	/**
@@ -44,12 +52,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-        $cart = new Cart();
-
-        $product = Product::with(['images'])->find($id);
-        $this->layout->content= View::make('products.info',compact('product','cart'));
-
-//		return Product::find($id)->category->name;
+		//
 	}
 
 	/**

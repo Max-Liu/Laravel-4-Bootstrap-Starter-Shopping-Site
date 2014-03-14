@@ -8,6 +8,7 @@ Route::group(array('before'=>'auth'),function(){
     Route::resource('tags', 'TagsController');
     Route::resource('orders', 'OrdersController');
     Route::resource('address', 'AddressesController');
+    Route::resource('images', 'ImagesController');
 
     Route::get('address/default/{id}','AddressesController@setDefault');
     Route::get('checkout','OrdersController@getCheckout');
