@@ -26,8 +26,10 @@ class BaseController extends Controller {
         }
     }
 
-    protected function responses($responser){
-        if(Request::wantsJson()){
+    protected function responses(){
+        $responser =  $this->responser;
+
+        if(Request::wantsJson() OR Request::ajax()){
             if($responser['error']){
                 return Response::json(array(
                     'msg'=>$responser['msg'],
@@ -37,11 +39,10 @@ class BaseController extends Controller {
             }else{
 
                 foreach ($responser['data'] as &$item){
-                    if($item){
+                    if(is_object($item)){
                         $item = $item->toArray();
                     }
                 }
-
                 return Response::json(array(
                     'msg'=>$responser['msg'],
                     'error'=>$responser['error'],
