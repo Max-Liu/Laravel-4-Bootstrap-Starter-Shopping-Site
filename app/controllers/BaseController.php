@@ -35,6 +35,13 @@ class BaseController extends Controller {
                     'data'=>$responser['data'])
                 );
             }else{
+
+                foreach ($responser['data'] as &$item){
+                    if($item){
+                        $item = $item->toArray();
+                    }
+                }
+
                 return Response::json(array(
                     'msg'=>$responser['msg'],
                     'error'=>$responser['error'],
@@ -45,7 +52,7 @@ class BaseController extends Controller {
             if($responser['error']){
                 return Redirect::to($responser['redirect'])->with(array('error'=>$responser['msg']));
             }else{
-                if (Request::isMethod('get')){
+                if (!$this->responser['redirect']){
                     $this->layout->content = View::make($responser['viewPath'], $responser['data']);
                 }else{
                     return Redirect::to($responser['redirect']);
