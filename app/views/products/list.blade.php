@@ -22,7 +22,9 @@
 					<td>{{$product->price}}</td>
 					<td>{{$product->stock}}</td>
 					<td>{{$product->status}}</td>
-					<td>{{category::find($product->category_id)->name}}</td>
+                    @if($product->category)
+					<td>{{$product->category->name}}</td>
+                    @endif
 				</tr>
 				@endforeach
 				</tbody>
