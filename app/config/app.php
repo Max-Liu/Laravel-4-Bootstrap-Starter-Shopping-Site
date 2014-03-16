@@ -109,6 +109,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Frozennode\Administrator\AdministratorServiceProvider',
 	),
 
 	/*
