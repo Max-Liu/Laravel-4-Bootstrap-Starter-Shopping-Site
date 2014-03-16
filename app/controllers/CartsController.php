@@ -23,8 +23,9 @@ class CartsController extends \BaseController
         $totalItems = $this->cart->totalItems();
         $totalPrice = $this->cart->totalPrice();
 
-        $this->layout->content = View::make('carts.list', compact('carts', 'totalItems', 'totalPrice'));
-
+        $this->responser['viewPath'] =  'carts.list';
+        $this->responser['data'] = compact('carts','totalItems','totalPrice');
+        return $this->responses();
     }
 
     /**

@@ -10,7 +10,6 @@
     <p>{{$product->description}}</p>
     <p><b>价格:</b>{{$product->price}}</p>
     <p><b>数量:</b>{{$product->stock}}</p>
-    <p><b>购物车物品:</b>{{$cart->totalItems()}}</p>
 
     <div>
         {{ Form::open(array('route' => 'carts.store', 'method' => 'post'))}}

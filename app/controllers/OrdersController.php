@@ -15,7 +15,7 @@ class OrdersController extends \BaseController
         $orders = Order::with(['address'])->where('user_id', '=', $this->userId)->orderBy('created_at', 'desc')->get();
         $this->responser['data'] = compact('orders');
         $this->responser['viewPath'] = 'orders.list';
-        return $this->responses($this->responser);
+        return $this->responses();
     }
 
     /**
@@ -56,7 +56,7 @@ class OrdersController extends \BaseController
             $this->responser['redirect'] = url('checkout');
         }
 
-        return $this->responses($this->responser);
+        return $this->responses();
     }
 
     /**
@@ -73,7 +73,7 @@ class OrdersController extends \BaseController
         $this->responser['viewPath'] = 'orders.info';
         $this->responser['data'] = compact('orderItems','order');
 
-        return $this->responses($this->responser);
+        return $this->responses();
     }
 
     /**
@@ -121,6 +121,6 @@ class OrdersController extends \BaseController
         $this->responser['viewPath']= 'orders.checkout';
         $this->responser['data'] = compact('cartList', 'address', 'totalItems', 'totalPrice');
 
-        return $this->responses($this->responser);
+        return $this->responses();
     }
 }

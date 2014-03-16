@@ -10,10 +10,11 @@ class ProductsController extends \BaseController {
 	public function index()
 	{
 		$data = array();
-        $products = Product::paginate(15);
+        $products = Product::with('category')->paginate(15);
+        $this->responser['data'] = compact('products');
+        $this->responser['viewPath'] = 'products.list';
 
-
-		$this->layout->content = View::make('products.list',compact('products'));
+        return $this->responses();
 	}
 
 	/**
@@ -44,12 +45,11 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-        $cart = new Cart();
 
         $product = Product::with(['images'])->find($id);
-        $this->layout->content= View::make('products.info',compact('product','cart'));
-
-//		return Product::find($id)->category->name;
+        $this->responser['data'] = compact('product');
+        $this->responser['viewPath'] = 'products.info';
+        return $this->responses();
 	}
 
 	/**
