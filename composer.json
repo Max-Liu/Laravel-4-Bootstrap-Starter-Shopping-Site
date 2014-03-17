@@ -9,8 +9,7 @@
 		"barryvdh/laravel-ide-helper": "1.*",
         "fzaninotto/faker": "v1.3.0",
         "intervention/image": "1.*",
-        "raveren/kint": "dev-master",
-        "frozennode/administrator": "dev-master"
+        "raveren/kint": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -28,14 +27,12 @@
 	"scripts": {
 		"post-install-cmd": [
 			"php artisan clear-compiled",
-			"php artisan optimize",
-            "php artisan asset:publish frozennode/administrator"
+			"php artisan optimize"
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
 			"php artisan optimize",
-			"php artisan ide-helper:generate",
-            "php artisan asset:publish frozennode/administrator"
+			"php artisan ide-helper:generate"
 		],
 		"post-create-project-cmd": [
 			"php artisan key:generate"

@@ -28,6 +28,9 @@ return array(
 
 	'default' => 'mysql',
 
+
+    'log'=>true,
+
 	/*
 	|--------------------------------------------------------------------------
 	| Database Connections
