@@ -8,7 +8,7 @@ class ImagesController extends \BaseController {
 	 * @return Response
 	 */
 
-    protected $imagePath = 'uploads/images';
+
 	public function index()
 	{
 		//
@@ -32,16 +32,22 @@ class ImagesController extends \BaseController {
 	 */
 	public function store()
 	{
-        $input = Input::file('image');
+        $newImage = Input::file('image');
+        $image = new Image();
 
-        $image = new Image;
-        $image->parent_id = 1;
-        $image->name = md5(time().$input->getClientOriginalName());
-        $image->mime_type =  $input->getClientMimeType();
-        $image->extension = $input->getClientOriginalExtension();
-        $image->size = $input->getClientSize();
-        $input->move($this->imagePath.'/',$image->name.'.'.$input->getClientOriginalExtension());
+        $image->parent_id = Input::input('parent_id');
+        $image->name = md5(time().$newImage->getClientOriginalName()).'.'.$newImage->getClientOriginalExtension();
+
+        $image->mime_type =  $newImage->getClientMimeType();
+        $image->size = $newImage->getClientSize();
+        $image->path = '/'.Image::$imagePath.'/'.$image->name;
+
+        $newImage->move(Image::$imagePath.'/',$image->name);
         $image->save();
+
+        $this->responser['redirect'] = route('products.edit',Input::input('parent_id'));
+
+        return $this->responses();
 	}
 
 	/**
@@ -63,7 +69,7 @@ class ImagesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+
 	}
 
 	/**
@@ -74,7 +80,19 @@ class ImagesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $image = new Image();
+        $input = Input::only(['parent_id','id']);
+
+        $result = $image->updateImage($input);
+
+        if (is_object($result)) {
+            $this->responser['error'] = true;
+            $this->responser['msg'] = $result->messages()->first();
+        } else {
+            $this->responser['msg']= '修改成功';
+        }
+        $this->responser['redirect'] = route('products.edit', $input['parent_id']);
+        return $this->responses();
 	}
 
 	/**
@@ -85,7 +103,12 @@ class ImagesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $image = Image::find($id);
+        unlink(substr($image->path,1));
+        $image::destroy($id);
+        $this->responser['redirect'] = route('products.edit',Input::input('parent_id'));
+
+        $this->responses();
 	}
 
 }

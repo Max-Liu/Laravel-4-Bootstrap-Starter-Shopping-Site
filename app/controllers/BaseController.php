@@ -56,6 +56,7 @@ class BaseController extends Controller {
                 if (!$this->responser['redirect']){
                     $this->layout->content = View::make($responser['viewPath'], $responser['data']);
                 }else{
+                    Session::flash('info',$this->responser['msg']);
                     return Redirect::to($responser['redirect']);
                 }
             }

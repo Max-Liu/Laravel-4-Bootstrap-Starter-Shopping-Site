@@ -60,7 +60,10 @@ class ProductsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+        $product = Product::with(['images'])->find($id);
+        $this->responser['data'] = compact('product');
+        $this->responser['viewPath'] = 'products.edit';
+        return $this->responses();
 	}
 
 	/**
@@ -71,7 +74,19 @@ class ProductsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $input = Input::only('name','price','status','stock','description');
+
+        $product = Product::find($id);
+        $result = $product->updateProduct($input);
+
+        if (is_object($result)) {
+            $this->responser['error'] = true;
+            $this->responser['msg'] = $result->messages()->first();
+        } else {
+            $this->responser['msg']= '修改成功';
+        }
+        $this->responser['redirect'] = route('products.edit', $id);
+        return $this->responses();
 	}
 
 	/**

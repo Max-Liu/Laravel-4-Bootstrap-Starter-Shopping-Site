@@ -2,8 +2,8 @@
 <div class="col-lg-4">
 
 @if($product->images)
-    @foreach ($product->images as $images)
-    <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="/uploads/images/{{$images->name.'.'.$images->extension}}" style="width: 140px; height: 140px;">
+    @foreach ($product->images as $image)
+    <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="{{$image->path}}" style="width: 140px; height: 140px;">
     @endforeach
 @endif
     <h2>{{$product->name}}</h2>

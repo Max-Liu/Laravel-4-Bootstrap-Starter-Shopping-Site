@@ -39,15 +39,14 @@
             @include('partials.header')
         </div>
         @endif
-
         <div>
             @if (Session::get('error'))
             <li class="bg-danger">{{Session::get('error')}}</li>
+            @elseif (Session::get('info'))
+            <li class="bg-success">{{Session::get('info')}}</li>
             @endif
-            @foreach($errors->all('<li class="bg-danger">:message</li>') as $message)
-                    {{$message}}
-            @endforeach
         </div>
+
 
         <div class="container-fluid">
             @yield('content')
