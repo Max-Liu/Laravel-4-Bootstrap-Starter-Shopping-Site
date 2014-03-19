@@ -16,7 +16,7 @@ class ProductsTableSeeder extends Seeder {
             Product::create(
 	            array(
 		            'name'=>$faker->name,
-		            'price'=>$faker->numberBetween(200,5000),
+		            'price'=>$faker->randomFloat(50,1000),
 		            'status'=>$faker->numberBetween(0,2),
 		            'stock'=>$faker->numberBetween(50,100),
 		            'description'=>$faker->text(),
