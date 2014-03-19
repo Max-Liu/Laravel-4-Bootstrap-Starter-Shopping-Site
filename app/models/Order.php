@@ -54,7 +54,6 @@ class Order extends \Eloquent
 
         $productList = Product::whereIn('id', $cartProductIdList)->get();
         $orderPriceTotal = 0;
-
         foreach ($productList as $orderProduct) {
             $orderItem = new OrderItem();
             $orderItem->order_id = $this->id;
@@ -63,7 +62,7 @@ class Order extends \Eloquent
             $orderItem->price = $orderProduct->price;
             $orderItem->qty = $cartContents[md5($orderProduct->id)]['qty'];
             $orderItem->save();
-            $orderPriceTotal = +$orderItem->price * $orderItem->qty;
+            $orderPriceTotal += $orderItem->price * $orderItem->qty;
         }
 
         $this->price_total = $orderPriceTotal;
