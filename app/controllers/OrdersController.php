@@ -114,12 +114,28 @@ class OrdersController extends \BaseController
 
         $cart = new Cart();
         $cartList = $cart->contents();
+
+        if(!$cartList){
+            $this->responser['msg'] = '无法下单，购物车为空';
+            $this->responser['error'] = true;
+            $this->responser['redirect'] = route('products.index');
+            return $this->responses();
+        }
+
         $totalItems = $cart->totalItems();
         $totalPrice = $cart->totalPrice();
-        $address = Address::where('is_default', '=', 1)->where('user_id', '=', $this->userId)->first();
+        $addressList = Address::where('user_id', '=', $this->userId)->get()->toArray();
 
+        $addressViewList = array();
+
+        foreach ($addressList as $address){
+            if($address['is_default'] == 1){
+                $defaultAddressKey = $address['id'];
+            }
+            $addressViewList = array_add($addressViewList,$address['id'],$address['name'].' '.$address['address']);
+        }
         $this->responser['viewPath']= 'orders.checkout';
-        $this->responser['data'] = compact('cartList', 'address', 'totalItems', 'totalPrice');
+        $this->responser['data'] = compact('cartList', 'addressList', 'totalItems', 'totalPrice','defaultAddressKey','addressViewList');
 
         return $this->responses();
     }

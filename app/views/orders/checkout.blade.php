@@ -1,10 +1,4 @@
 @section('content')
-
-<div>
-    <h2>地址</h2>
-    <p>默认地址：{{$address->name}} {{$address->address}}</p>
-</div>
-
 <div class="table-responsive">
     <h2>商品详情</h2>
     <table class="table table-striped">
@@ -31,14 +25,19 @@
         </tbody>
     </table>
     <p>总量:{{$totalItems}}</p>
+
     <p>总价:{{$totalPrice}}</p>
 </div>
 
 
-
-
 {{Form::open(array('route' => array('orders.store'),'method'=>'POST'))}}
-{{Form::hidden('ship_to', $address->id);}}
+@foreach ($addressViewList as $key =>$address)
+@if($defaultAddressKey == $key)
+<p>{{Form::radio('ship_to', $key, true)}}{{$address}}</p>
+@else
+<p>{{Form::radio('ship_to',$key, false)}}{{$address}}</p>
+@endif
+@endforeach
 {{Form::submit('下单',array('class'=>'btn btn-default'))}}
 {{ Form::close() }}
 @stop
