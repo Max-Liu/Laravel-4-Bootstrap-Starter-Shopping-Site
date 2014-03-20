@@ -1,6 +1,4 @@
 @section('content')
-<div class="row">
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h2 class="sub-header">购物车</h2><a href="{{route('products.index')}}">商品列表</a>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -38,7 +36,5 @@
             <p>总量:{{$totalItems}}</p>
             <p>总价:{{$totalPrice}}</p>
         </div>
-    </div>
-</div>
 @stop
 

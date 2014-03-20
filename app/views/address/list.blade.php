@@ -1,5 +1,4 @@
 @section('content')
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header">我的地址</h2>
     <div class="table-responsive">
         <p><a href="{{route('address.create')}}">新建地址</a></p>
@@ -39,7 +38,6 @@
         </table>
     </div>
     {{$addressList->links()}}
-</div>
 
 
 @stop

@@ -1,6 +1,6 @@
 @section('content')
 
-<form class="form-signin" role="form" action="{{route('address.store')}}" method="post">
+<form class="form" role="form" action="{{route('address.store')}}" method="post">
     <h2 class="form-signin-heading">新地址</h2>
     <input type="text" class="form-control" placeholder="姓名" required autofocus name="name">
     <input type="text" class="form-control" placeholder="联系电话" required autofocus name="phone">

@@ -1,6 +1,4 @@
 @section('content')
-<div class="row">
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<h2 class="sub-header">product</h2>
 		<div class="table-responsive">
 			<table class="table table-striped">
@@ -31,7 +29,5 @@
 			</table>
             {{$products->links()}}
 		</div>
-	</div>
-</div>
 @stop
 
