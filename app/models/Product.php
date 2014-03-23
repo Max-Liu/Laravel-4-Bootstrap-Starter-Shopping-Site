@@ -21,7 +21,7 @@ class Product extends \Eloquent {
     }
 
     public function images(){
-        return $this->hasMany('image','parent_id','id');
+        return $this->hasMany('image','parent_id','id')->orderBy('id','desc');
     }
 
     public function updateProduct($input){

@@ -40,9 +40,11 @@ class Image extends \Eloquent
     {
         $input = Input::all();
 
+        $product = new Product();
+
         $validationRole = array(
             'image' => 'required|mimes:jpeg,png',
-            'parent_id' => 'required|exists:'.$this->getTable(),
+            'id' => 'required|exists:'.$product->getTable()
         );
 
         $validator = Validator::make($input, $validationRole);
@@ -52,7 +54,7 @@ class Image extends \Eloquent
         } else {
             $newImage = $input['image'];
 
-            $this->parent_id = $input['parent_id'];
+            $this->parent_id = $input['id'];
             $this->name = md5(time() . $newImage->getClientOriginalName()) . '.' . $newImage->getClientOriginalExtension();
             $this->mime_type = $newImage->getClientMimeType();
             $this->size = $newImage->getClientSize();
