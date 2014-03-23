@@ -43,7 +43,7 @@ class ImagesController extends \BaseController
         } else {
             $this->responser['msg'] = '修改成功';
         }
-        $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
+        $this->responser['redirect'] = route('products.edit', Input::input('id'));
         return $this->responses();
     }
 
