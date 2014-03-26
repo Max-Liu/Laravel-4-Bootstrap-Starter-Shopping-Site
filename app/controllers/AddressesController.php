@@ -33,14 +33,18 @@ class AddressesController extends \BaseController
     public function store()
     {
         $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode'));
-
+		$input['user_id']= $this->userId;
         $address = new Address();
         $result = $address->createNewAddress($input);
 
         if (is_object($result)) {
-            return Redirect::route('address.create')->withErrors($result);
+	        $this->responser['redirect'] = route('address.create');
+	        $this->responser['error'] = true;
+	        $this->responser['msg'] = $result->errors()->first();
+	        return $this->responses();
         } else {
-            return Redirect::route('address.index');
+	        $this->responser['redirect'] = route('address.index');
+	        return $this->responses();
         }
     }
 
@@ -52,8 +56,7 @@ class AddressesController extends \BaseController
      */
     public function show($id)
     {
-        echo 131;
-        exit;
+
     }
 
     /**
@@ -82,7 +85,9 @@ class AddressesController extends \BaseController
         $result = $address->updateAddress($input);
 
         if (is_object($result)) {
-            return Redirect::route('address.edit', $id)->withErrors($result);
+	        $this->responser['viewPath'] = route('address.edit');
+	        $this->responser['error'] = true;
+	        return $this->responses();
         } else {
 
             return Redirect::route('address.edit', $id);

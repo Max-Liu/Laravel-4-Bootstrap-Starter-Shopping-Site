@@ -122,6 +122,13 @@ class OrdersController extends \BaseController
             return $this->responses();
         }
 
+	    if(Address::where('user_id','=',$this->userId)->get()->count() == 0){
+		    $this->responser['msg']='请先填写收货地址';
+		    $this->responser['error']=true;
+		    $this->responser['redirect']=route('address.index');
+		    return $this->responses();
+	    }
+
         $totalItems = $cart->totalItems();
         $totalPrice = $cart->totalPrice();
         $addressList = Address::where('user_id', '=', $this->userId)->get()->toArray();

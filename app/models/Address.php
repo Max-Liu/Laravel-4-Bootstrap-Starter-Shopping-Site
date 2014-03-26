@@ -1,7 +1,7 @@
 <?php
 
 class Address extends \Eloquent {
-    protected $fillable = ['name','phone','address','city','postcode','is_default'];
+    protected $fillable = ['name','phone','address','city','postcode','is_default','user_id'];
 
 
 
@@ -11,6 +11,7 @@ class Address extends \Eloquent {
         'address'=>'required',
         'city'=>'required',
         'postcode'=>'required',
+	    'user_id'=>'required'
     );
 
     public function user(){
@@ -26,6 +27,7 @@ class Address extends \Eloquent {
         if ($validator->fails()){
             return $validator;
         }else{
+
             $this->create($input);
         }
     }
