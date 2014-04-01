@@ -17,6 +17,9 @@ class UsersTableSeeder extends Seeder {
                 'username'=>$faker->userName,
             ]);
         }
+        User::create([
+            'email'=>'admin@gmail.com',
+            'password'=>'$2y$10$sbSxacLzIlhZ76rK9JWNK.YSC8ZEKvJ4vadFIhWQ0s/jaNiLoQt0G'
+        ]);
     }
-
 }
