@@ -7,8 +7,10 @@ Route::group(array('before'=>'auth'),function(){
     Route::resource('users', 'UsersController');
     Route::resource('tags', 'TagsController');
     Route::resource('orders', 'OrdersController');
-    Route::resource('address', 'AddressesController');
+    Route::resource('addresses', 'AddressesController');
     Route::resource('images', 'ImagesController');
+	Route::resource('permissions', 'PermissionsController');
+	Route::resource('groups','GroupsController');
 
     Route::get('address/default/{id}','AddressesController@setDefault');
     Route::get('checkout','OrdersController@getCheckout');
@@ -18,6 +20,14 @@ Route::group(array('before'=>'auth'),function(){
 });
 
 
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function(){
+    Route::resource('products', 'ProductsController');
+});
+
+
+
+
+
 // User reset routes
 Route::get('user/remind','RemindersController@getRemind');
 Route::post('user/remind','RemindersController@postRemind');
@@ -25,7 +35,7 @@ Route::get('user/reset/{token}','RemindersController@getReset');
 Route::post('user/reset','RemindersController@PostReset');
 
 Route::get('user/login','UsersController@getLogin');
-Route::get('user/logout','UsersController@getLogout');
+Route::get('user/logout',array('as'=>'users.logout','uses'=>'UsersController@getLogout'));
 Route::post('user/login','UsersController@postLogin');
 
 

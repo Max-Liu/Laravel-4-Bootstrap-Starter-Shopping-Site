@@ -11,6 +11,7 @@ class BaseController extends Controller {
 
     protected $userId;
 
+
     protected $responser = array(
         'msg'=>'',
         'error'=>false,
@@ -23,6 +24,19 @@ class BaseController extends Controller {
     public function __construct(){
         if (Auth::check()){
             $this->userId = Auth::user()->getAuthIdentifier();
+	        $groupId = User::find($this->userId)->getAttribute('group_id');
+	        $permissionInfo = Permission::where('group_id','=',$groupId)->get()->toArray();
+	        foreach ($permissionInfo as $permission){
+		        $roles = unserialize($permission['roles']);
+		        foreach($roles as $key=>$role){
+			        if($permission['module'].'.'.$key == Route::getCurrentRoute()->getName()){
+				       if ($role == 0 ){
+					       $this->responser['error'] = true;
+					      echo $this->responser['msg']='没有权限';exit;
+				       }
+			        }
+		        }
+	        }
         }
     }
 
@@ -51,7 +65,10 @@ class BaseController extends Controller {
             }
         }else{
             if($responser['error']){
-                return Redirect::to($responser['redirect'])->with(array('error'=>$responser['msg']));
+	            if(!$responser['redirect']){
+		            $responser['redirect'] = URL::previous();
+	            }
+                return Redirect::to($responser['redirect'])->with(array('error'=>$responser['msg'],'data'=>$responser['data']));
             }else{
                 if (!$this->responser['redirect']){
                     $this->layout->content = View::make($responser['viewPath'], $responser['data']);

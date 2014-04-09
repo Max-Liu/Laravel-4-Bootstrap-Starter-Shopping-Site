@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call('OrdersTableSeeder');
         $this->call('OrderItemsTableSeeder');
         $this->call('AddressesTableSeeder');
+        $this->call('GroupsTableSeeder');
+        $this->call('PermissionsTableSeeder');
 	}
 }

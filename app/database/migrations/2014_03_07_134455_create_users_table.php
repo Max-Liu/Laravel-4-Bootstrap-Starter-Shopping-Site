@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
             $table->text('phone');
             $table->text('password');
             $table->text('username');
+	        $table->tinyInteger('group_id')->default(1);
 			$table->timestamps();
         });
 	}
