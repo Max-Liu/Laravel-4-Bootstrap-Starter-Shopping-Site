@@ -32,7 +32,7 @@ class AddressesController extends \BaseController
      */
     public function store()
     {
-        $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode'));
+        $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode','province'));
 		$input['user_id']= $this->userId;
         $address = new Address();
         $result = $address->createNewAddress($input);
@@ -41,6 +41,7 @@ class AddressesController extends \BaseController
 	        $this->responser['redirect'] = route('address.create');
 	        $this->responser['error'] = true;
 	        $this->responser['msg'] = $result->errors()->first();
+	        $this->responser['data'] = $input;
 	        return $this->responses();
         } else {
 	        $this->responser['redirect'] = route('address.index');
@@ -79,7 +80,8 @@ class AddressesController extends \BaseController
      */
     public function update($id)
     {
-        $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode'));
+        $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode','province'));
+	    $input['user_id']= $this->userId;
 
         $address = Address::find($id);
         $result = $address->updateAddress($input);
@@ -87,9 +89,9 @@ class AddressesController extends \BaseController
         if (is_object($result)) {
 	        $this->responser['viewPath'] = route('address.edit');
 	        $this->responser['error'] = true;
+	        $this->responser['msg'] = $result->errors()->first();
 	        return $this->responses();
         } else {
-
             return Redirect::route('address.edit', $id);
         }
 

@@ -3,7 +3,7 @@
 @foreach($errors->all('<li>:message</li>') as $message)
 {{$message}}
 @endforeach
-<form class="form-signin" role="form" action="{{route('address.update',$address->id)}}" method="post">
+<form class="form-signin" role="form" action="{{route('addresses.update',$address->id)}}" method="post">
     <h2 class="form-signin-heading">修改</h2>
     <input type="text" class="form-control" placeholder="姓名" required autofocus name="name" value="{{$address->name}}">
     <input type="text" class="form-control" placeholder="联系电话" required autofocus name="phone" value="{{$address->phone}}">

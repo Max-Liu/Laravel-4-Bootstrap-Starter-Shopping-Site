@@ -1,7 +1,7 @@
 @section('content')
     <h2 class="sub-header">我的地址</h2>
     <div class="table-responsive">
-        <p><a href="{{route('address.create')}}">新建地址</a></p>
+        <p><a href="{{route('addresses.create')}}">新建地址</a></p>
         <table class="table table-striped">
             <thead>
             <tr>

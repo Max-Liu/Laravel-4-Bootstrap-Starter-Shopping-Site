@@ -1,7 +1,7 @@
 <?php
 
 class Address extends \Eloquent {
-    protected $fillable = ['name','phone','address','city','postcode','is_default','user_id'];
+    protected $fillable = ['name','phone','address','city','postcode','is_default','user_id','province'];
 
 
 
@@ -11,7 +11,8 @@ class Address extends \Eloquent {
         'address'=>'required',
         'city'=>'required',
         'postcode'=>'required',
-	    'user_id'=>'required'
+	    'user_id'=>'required',
+	    'province'=>'required'
     );
 
     public function user(){
