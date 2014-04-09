@@ -1,6 +1,7 @@
 
 # Laravel 4 Bootstrap Starter Shopping Site
 
+
 This is an shopping starter site for [Laravel](http://laravel.com). With this you can buid a shopping in a very short time.With Product,Cart,Order,Address etc.
 
 - **Author:** Max Lau
@@ -31,7 +32,7 @@ This is an shopping starter site for [Laravel](http://laravel.com). With this yo
 
 - chmod 777 app/storage -R
 
-- That's it! (Default user:admin,password:admin12345)
+- That's it! (Default user:admin@gmail.com,password:admin12345)
 
 
 
