@@ -1,4 +1,10 @@
 <?php
+App::bind('ShopCore\Product',function(){
+	return new ShopCore\product(new ShopCore\product\ProductValidator(),new ShopCore\product\ProductRepository());
+});
+
+
+
 Route::group(array('before'=>'auth'),function(){
 
     Route::resource('products', 'ProductsController');

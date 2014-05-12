@@ -20,7 +20,10 @@
 			"app/database/seeds",
             "app/libraries",
 			"app/tests/TestCase.php"
-		]
+		],
+        "psr-0":{
+            "ShopCore":"app/"
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [

@@ -22,7 +22,7 @@
 
 <input name="name" type="text" value="{{$product->name}}" class="form-control">
 <input type="text" name="price" value="{{$product->price}}" class="form-control"/>
-<input type="text" name="status" value="{{$product::getStatusString($product->status)}}" class="form-control"/>
+<input type="text" name="status" value="{{$product->getStatusString($product->status)}}" class="form-control"/>
 <input type="text" name="stock" value="{{$product->stock}}" class="form-control"/>
 <input type="text" name="description" value="{{$product->description}}" class="form-control"/>
 <button class="btn btn-lg btn-primary btn-block" type="submit">修改</button>

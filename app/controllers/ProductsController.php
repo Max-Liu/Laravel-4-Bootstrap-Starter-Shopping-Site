@@ -2,6 +2,11 @@
 
 class ProductsController extends \BaseController {
 
+
+	public function __construct(ShopCore\Product $product){
+		$this->product = $product;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,11 +14,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$data = array();
-        $products = Product::with('category')->paginate(15);
+        $products =$this->product->data->getProductList();
         $this->responser['data'] = compact('products');
         $this->responser['viewPath'] = 'products.list';
-
         return $this->responses();
 	}
 
@@ -46,7 +49,7 @@ class ProductsController extends \BaseController {
 	public function show($id)
 	{
 
-        $product = Product::with(['images'])->find($id);
+		$product = $this->product->data->with(['images'])->find($id);
         $this->responser['data'] = compact('product');
         $this->responser['viewPath'] = 'products.info';
         return $this->responses();
@@ -60,7 +63,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-        $product = Product::with(['images'])->find($id);
+		$product = $this->product->data->with(array('images'))->find($id);
         $this->responser['data'] = compact('product');
         $this->responser['viewPath'] = 'products.edit';
         return $this->responses();
@@ -74,19 +77,18 @@ class ProductsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-        $input = Input::only('name','price','status','stock','description');
+		$input = Input::only('name','price','status','stock','description');
+		$isValid = $this->product->validator->validForUpdate($input);
 
-        $product = Product::find($id);
-        $result = $product->updateProduct($input);
-
-        if (is_object($result)) {
-            $this->responser['error'] = true;
-            $this->responser['msg'] = $result->messages()->first();
-        } else {
-            $this->responser['msg']= '修改成功';
-        }
-        $this->responser['redirect'] = route('products.edit', $id);
-        return $this->responses();
+		if ($isValid){
+			$this->product->db->find($id)->fill($input)->save();
+			$this->responser['msg']= '修改成功';
+		}else{
+			$this->responser['error']= true;
+			$this->responser['msg'] = $this->product->validator->messages()->first();
+		}
+		$this->responser['redirect'] = route('products.edit', $id);
+		return $this->responses();
 	}
 
 	/**
