@@ -2,7 +2,13 @@
 # Laravel 4 Bootstrap Starter Shopping Site
 
 
-This is an shopping starter site for [Laravel](http://laravel.com). With this you can buid a shopping in a very short time.With Product,Cart,Order,Address etc.
+
+---
+##!!!Under heavily devepment!!!
+---
+
+
+This is a shopping starter site for [Laravel](http://laravel.com),which could let you build a shopping site in a very short time with Product,Cart,Order,Address etc.
 
 - **Author:** Max Lau
 - **Website:** [http://iseemax.com](http://iseemax.com/)
