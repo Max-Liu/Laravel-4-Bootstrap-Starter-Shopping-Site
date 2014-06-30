@@ -3,6 +3,10 @@ App::bind('ShopCore\Product',function(){
 	return new ShopCore\product(new ShopCore\product\ProductValidator(),new ShopCore\product\ProductRepository());
 });
 
+App::bind('ShopCore\Address',function(){
+	return new ShopCore\address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
+});
+
 
 
 Route::group(array('before'=>'auth'),function(){
@@ -18,7 +22,7 @@ Route::group(array('before'=>'auth'),function(){
 	Route::resource('permissions', 'PermissionsController');
 	Route::resource('groups','GroupsController');
 
-    Route::get('address/default/{id}','AddressesController@setDefault');
+    Route::get('addresses/default/{id}','AddressesController@setDefault');
     Route::get('checkout','OrdersController@getCheckout');
     Route::get('/',function(){
         return Redirect::to('/products');

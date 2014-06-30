@@ -3,17 +3,21 @@
 class AddressesController extends \BaseController
 {
 
-    /**
+	public function __construct(ShopCore\Address $address){
+		parent::__construct();
+		$this->address = $address;
+	}
+		/**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index()
     {
-        $addressList = Address::where('user_id', '=', $this->userId)->orderBy('id','desc')->paginate(5);
-
+	    $addressList = $this->address->data->getAddressList($this->userId);
         $this->layout->content = View::make('address.list', compact('addressList'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,19 +38,18 @@ class AddressesController extends \BaseController
     {
         $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode','province'));
 		$input['user_id']= $this->userId;
-        $address = new Address();
-        $result = $address->createNewAddress($input);
 
-        if (is_object($result)) {
-	        $this->responser['redirect'] = route('address.create');
-	        $this->responser['error'] = true;
-	        $this->responser['msg'] = $result->errors()->first();
-	        $this->responser['data'] = $input;
-	        return $this->responses();
-        } else {
-	        $this->responser['redirect'] = route('address.index');
-	        return $this->responses();
-        }
+	    $validate = $this->address->validator->validateForInsert($input);
+	    if($validate){
+		    $this->address->data->createNewAddress($input);
+		    $this->responser['redirect'] = route('addresses.index');
+	    }else{
+		    $this->responser['redirect'] = route('addresses.create');
+		    $this->responser['error'] = true;
+		    $this->responser['msg'] = $this->address->validator->errors()->first();
+		    $this->responser['data'] = $input;
+	    }
+	    return $this->responses();
     }
 
     /**
@@ -68,7 +71,7 @@ class AddressesController extends \BaseController
      */
     public function edit($id)
     {
-        $address = Address::find($id);
+        $address = $this->address->data->find($id);
         $this->layout->content = View::make('address.edit', compact('address'));
     }
 
@@ -83,18 +86,20 @@ class AddressesController extends \BaseController
         $input = Input::only(array('name', 'phone', 'address', 'city', 'postcode','province'));
 	    $input['user_id']= $this->userId;
 
-        $address = Address::find($id);
-        $result = $address->updateAddress($input);
 
-        if (is_object($result)) {
-	        $this->responser['viewPath'] = route('address.edit');
-	        $this->responser['error'] = true;
-	        $this->responser['msg'] = $result->errors()->first();
-	        return $this->responses();
-        } else {
-            return Redirect::route('address.edit', $id);
-        }
+	    $validate= $this->address->validator->validForUpdate($input);
 
+
+	    if($validate){
+		    $this->address->data->updateAddress($input,$id);
+		    $this->responser['redirect'] = route('addresses.index');
+	    }else{
+		    $this->responser['redirect'] = route('addresses.create');
+		    $this->responser['error'] = true;
+		    $this->responser['msg'] = $this->address->validator->errors()->first();
+		    $this->responser['data'] = $input;
+	    }
+	    return $this->responses();
     }
 
     /**
@@ -105,22 +110,18 @@ class AddressesController extends \BaseController
      */
     public function destroy($id)
     {
-        if (Address::find($id)->exists()) {
-            if (Address::find($id)->user_id == $this->userId) {
-                Address::destroy($id);
+	    $address = $this->address->data->find($id);
+        if ($address->exists) {
+            if ($address->user_id == $this->userId) {
+                $this->address->data->destroy($id);
             }
         }
-        return Redirect::to(route('address.index'));
+        return Redirect::to(route('addresses.index'));
     }
 
     public function setDefault($id){
-        $address = Address::find($id);
 
-        if ($address->exists AND $address->user_id == $this->userId){
-            Address::where('user_id','=',$this->userId)->update(array('is_default'=>0));
-            $address->is_default = 1;
-            $address->save();
-        }
-        return Redirect::to(route('address.index'));
+	    $this->address->setDefault($id,$this->userId);
+	    return Redirect::to(route('addresses.index'));
     }
 }
