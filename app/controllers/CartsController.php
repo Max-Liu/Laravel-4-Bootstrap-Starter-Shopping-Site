@@ -5,11 +5,11 @@ class CartsController extends \BaseController
 
     protected $cart;
 
-    function __construct()
+    function __construct(Illuminate\Session\Store $session)
     {
-
+	    $this->cart = new \ShopCore\Cart($session);
         $this->beforeFilter('csrf', array('on' => 'post'));
-        $this->cart = new Cart();
+
     }
 
     /**
@@ -46,8 +46,8 @@ class CartsController extends \BaseController
     public function store()
     {
         $product = array_except(Input::all(), array('_token'));
-        $product['price'] = Product::find($product['id'])->price;
-        $product['name'] = Product::find($product['id'])->name;
+        $product['price'] = $this->cart->product->data->find($product['id'])->price;
+        $product['name'] = $this->cart->product->data->find($product['id'])->name;
 
         $this->cart->insert($product);
 

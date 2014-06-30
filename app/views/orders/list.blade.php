@@ -13,20 +13,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($orders as $order)
+                @foreach ($dataObjects as $data)
 
                 <tr>
-                    <td>{{$order->id}}</td>
-                    <td>{{$order::getOrderStatusStr($order->status)}}</td>
-                    <td>{{$order->price_total}}</td>
+                    <td>{{$data->id}}</td>
+                    <td>{{$order->getOrderStatusStr($data->status)}}</td>
+                    <td>{{$data->price_total}}</td>
                     <td>
-                        @if ($order->address)
-                            {{$order->address->name}}
+                        @if ($data->address)
+                            {{$data->address->name}}
                         @endif
                     </td>
 
-                    <td>{{$order->created_at}}</td>
-                    <td><a href="{{route('orders.show',$order->id)}}">详情</a></td>
+                    <td>{{$data->created_at}}</td>
+                    <td><a href="{{route('orders.show',$data->id)}}">详情</a></td>
                 </tr>
                 @endforeach
                 </tbody>

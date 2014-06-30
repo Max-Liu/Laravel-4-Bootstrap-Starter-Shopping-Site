@@ -1,12 +1,26 @@
 <?php
+namespace ShopCore;
+use Illuminate\Session\Store;
+use ShopCore\product\ProductRepository;
+use ShopCore\product\ProductValidator;
 
 /**
  *
  */
 class Cart
 {
+	 public function __construct(Store $session)
+	{
+		$this->session = $session;
+		$this->product = new Product(new ProductValidator(),new ProductRepository());
 
-	public $product_name_safe = true;
+		$this->_cartContents =$this->session->get('cartContents');
+		if (!$this->_cartContents) {
+			$this->_cartContents = array('totalItems' => 0,'cartTotal'=>0);
+		}
+	}
+
+		public $product_name_safe = true;
 	/**
 	 *
 	 * These are the regular expression rules that we use to validate the product ID and product name
@@ -26,14 +40,6 @@ class Cart
 
 	protected $_cartContents = array();
 
-	function __construct()
-	{
-		$this->_cartContents = Session::get('cartContents');
-
-		if (!$this->_cartContents) {
-			$this->_cartContents = array('totalItems' => 0,'cartTotal'=>0);
-		}
-	}
 
 	public function insert($items = array())
 	{
@@ -161,12 +167,11 @@ class Cart
 			// Is our cart empty? If so we delete it from the session
 		}
 		if (count($this->_cartContents) <= 2) {
-			Session::forget('cartContents');
+			$this->session->forget('cartContents');
 			Log::warning('cart is empty,nothing to save');
 			return false;
 		}
-
-		Session::put('cartContents', $this->_cartContents);
+		$this->session->put('cartContents', $this->_cartContents);
 		return true;
 	}
 
@@ -215,6 +220,6 @@ class Cart
 	public function destroy()
 	{
 		$this->_cartContents = array('cartTotal' => 0, 'totalItems' => 0);
-		Session::forget('cartContents');
+		$this->session->forget('cartContents');
 	}
 }

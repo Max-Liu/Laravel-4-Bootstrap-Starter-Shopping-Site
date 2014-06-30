@@ -7,6 +7,12 @@ App::bind('ShopCore\Address',function(){
 	return new ShopCore\address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
 });
 
+App::bind('ShopCore\Order',function(){
+	return new ShopCore\order(new ShopCore\order\OrderValidator(),new ShopCore\order\OrderRepository());
+});
+
+
+
 
 
 Route::group(array('before'=>'auth'),function(){

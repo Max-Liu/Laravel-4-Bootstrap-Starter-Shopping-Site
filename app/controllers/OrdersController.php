@@ -10,10 +10,24 @@ class OrdersController extends \BaseController
      */
 
 
+	public function __construct(Illuminate\Session\Store $session,\ShopCore\Order $order){
+		parent::__construct();
+
+		$this->order = $order;
+		$this->session = $session;
+		$this->cart = new \ShopCore\Cart($this->session);
+		$this->address = new ShopCore\address\AddressRepository();
+		$this->orderItem = new \ShopCore\order\OrderItemRepository();
+	}
+
+
     public function index()
     {
-        $orders = Order::with(['address'])->where('user_id', '=', $this->userId)->orderBy('created_at', 'desc')->get();
-        $this->responser['data'] = compact('orders');
+	    $dataObjects =$this->order->data->getUserOrderList($this->userId);
+
+	    $order = $this->order;
+
+        $this->responser['data'] = compact('dataObjects','order');
         $this->responser['viewPath'] = 'orders.list';
         return $this->responses();
     }
@@ -37,17 +51,16 @@ class OrdersController extends \BaseController
     {
         $input = Input::only(['ship_to']);
 
-        if ($address = Address::find($input['ship_to'])) {
+        if ($address = $this->address->find($input['ship_to'])) {
             if ($address->user_id != $this->userId) {
                 $this->responser['error'] = true;
                 $this->responser['msg'] = '该地址不属于此用户';
                 $this->responser['redirect'] = url('checkout');
             }
 
-            $order = new Order();
-            $order->newOrder($input['ship_to']);
-
+	        $this->order->newOrder($input['ship_to'],$this->userId,$this->cart);
             $this->responser['redirect'] = route('orders.index');
+
 
         } else {
 
@@ -67,11 +80,12 @@ class OrdersController extends \BaseController
      */
     public function show($id)
     {
-        $order = Order::find($id);
-        $orderItems = OrderItem::where('order_id', '=', $id)->get();
+	    $orderObject = $this->order->data->find($id);
+        $orderItems = $this->orderItem->where('order_id', '=', $id)->get();
+	    $order = $this->order;
 
         $this->responser['viewPath'] = 'orders.info';
-        $this->responser['data'] = compact('orderItems','order');
+        $this->responser['data'] = compact('orderItems','orderObject','order');
 
         return $this->responses();
     }
@@ -112,9 +126,7 @@ class OrdersController extends \BaseController
     public function getCheckout()
     {
 
-        $cart = new Cart();
-        $cartList = $cart->contents();
-
+        $cartList = $this->cart->contents();
         if(!$cartList){
             $this->responser['msg'] = '无法下单，购物车为空';
             $this->responser['error'] = true;
@@ -122,16 +134,16 @@ class OrdersController extends \BaseController
             return $this->responses();
         }
 
-	    if(Address::where('user_id','=',$this->userId)->get()->count() == 0){
+	    if($this->address->where('user_id','=',$this->userId)->get()->count() == 0){
 		    $this->responser['msg']='请先填写收货地址';
 		    $this->responser['error']=true;
-		    $this->responser['redirect']=route('address.index');
+		    $this->responser['redirect']=route('addresses.index');
 		    return $this->responses();
 	    }
 
-        $totalItems = $cart->totalItems();
-        $totalPrice = $cart->totalPrice();
-        $addressList = Address::where('user_id', '=', $this->userId)->get()->toArray();
+        $totalItems = $this->cart->totalItems();
+        $totalPrice = $this->cart->totalPrice();
+        $addressList = $this->address->where('user_id', '=', $this->userId)->get()->toArray();
 
         $addressViewList = array();
 

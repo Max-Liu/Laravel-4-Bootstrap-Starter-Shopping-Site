@@ -3,9 +3,9 @@
 <h2 class="sub-header">订单详情</h2>
 
 
-<p>下单时间：{{$order->created_at}}</p>
-<p>总价：{{$order->price_total}}</p>
-<p>状态：{{Order::getOrderStatusStr($order->status)}}</p>
+<p>下单时间：{{$orderObject->created_at}}</p>
+<p>总价：{{$orderObject->price_total}}</p>
+<p>状态：{{$order->getOrderStatusStr($orderObject->status)}}</p>
 
 <div class="table-responsive">
     <table class="table table-striped">
