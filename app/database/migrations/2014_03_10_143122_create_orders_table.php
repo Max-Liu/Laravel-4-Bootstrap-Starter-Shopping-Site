@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration {
             $table->integer('user_id');
             $table->tinyInteger('status');
             $table->float('price_total');
-            $table->tinyInteger('ship_to');
+            $table->integer('ship_to');
 			$table->timestamps();
         });
 	}

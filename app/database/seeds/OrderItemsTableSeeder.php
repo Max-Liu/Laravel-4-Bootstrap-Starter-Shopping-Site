@@ -8,10 +8,11 @@ class OrderItemsTableSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
+	    $orderItem = new ShopCore\order\OrderItemRepository();
 
         foreach(range(1, 10) as $index)
         {
-            OrderItem::create([
+            $orderItem->create([
                 'order_id'=>$faker->numberBetween(1,100),
                 'product_id'=>$faker->numberBetween(1,100),
                 'name'=>$faker->name,

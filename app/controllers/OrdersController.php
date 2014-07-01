@@ -146,6 +146,7 @@ class OrdersController extends \BaseController
         $addressList = $this->address->where('user_id', '=', $this->userId)->get()->toArray();
 
         $addressViewList = array();
+	    $defaultAddressKey = '';
 
         foreach ($addressList as $address){
             if($address['is_default'] == 1){
@@ -153,6 +154,11 @@ class OrdersController extends \BaseController
             }
             $addressViewList = array_add($addressViewList,$address['id'],$address['name'].' '.$address['address']);
         }
+
+	    if(!$defaultAddressKey){
+		    $defaultAddressKey = $addressList[0]['id'];
+	    }
+
         $this->responser['viewPath']= 'orders.checkout';
         $this->responser['data'] = compact('cartList', 'addressList', 'totalItems', 'totalPrice','defaultAddressKey','addressViewList');
 

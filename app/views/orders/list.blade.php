@@ -14,14 +14,16 @@
                 </thead>
                 <tbody>
                 @foreach ($dataObjects as $data)
-
                 <tr>
+
                     <td>{{$data->id}}</td>
                     <td>{{$order->getOrderStatusStr($data->status)}}</td>
                     <td>{{$data->price_total}}</td>
                     <td>
                         @if ($data->address)
                             {{$data->address->name}}
+                            {{$data->address->phone}}
+	                        {{$data->address->address}}
                         @endif
                     </td>
 

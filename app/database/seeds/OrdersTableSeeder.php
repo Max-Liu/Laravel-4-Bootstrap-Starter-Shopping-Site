@@ -7,11 +7,13 @@ class OrdersTableSeeder extends Seeder {
 
     public function run()
     {
+	    $order = new ShopCore\order\OrderRepository();
+
         $faker = Faker::create();
 
         foreach(range(1, 100) as $index)
         {
-            Order::create([
+            $order->create([
                 'user_id'=>$faker->numberBetween(1,100),
                 'status'=>$faker->numberBetween(1,3),
                 'price_total'=>$faker->numberBetween(500,1000),
