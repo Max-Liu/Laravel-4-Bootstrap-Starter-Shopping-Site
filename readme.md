@@ -34,7 +34,7 @@ This is a shopping starter site for [Laravel](http://laravel.com),which could le
 
 - Composer update
 
-- go to project root. php artisan migrate, php artisan db:seed
+- go to project root. php artisan migrate, php artisan migrate:refresh --seed
 
 - chmod 777 app/storage -R
 
