@@ -46,7 +46,7 @@ class AddressesController extends \BaseController
 	    }else{
 		    $this->responser['redirect'] = route('addresses.create');
 		    $this->responser['error'] = true;
-		    $this->responser['msg'] = $this->address->validator->errors()->first();
+		    $this->responser['msg'] = $this->address->validator->messages()->first();
 		    $this->responser['data'] = $input;
 	    }
 	    return $this->responses();
@@ -87,7 +87,7 @@ class AddressesController extends \BaseController
 	    $input['user_id']= $this->userId;
 
 
-	    $validate= $this->address->validator->validForUpdate($input);
+	    $validate= $this->address->validator->validateForUpdate($input);
 
 
 	    if($validate){

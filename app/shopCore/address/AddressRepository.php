@@ -23,5 +23,10 @@ class AddressRepository extends \Eloquent
 			$address->fill($input);
 			$address->save();
 	}
+
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
 }
 
