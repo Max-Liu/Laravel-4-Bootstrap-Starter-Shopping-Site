@@ -9,9 +9,11 @@ class AddressesTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
+	    $address = new ShopCore\address\AddressRepository();
+	    $address->truncate();
         foreach(range(1, 200) as $index)
         {
-            Address::create([
+            $address->create([
                 'name'=>$faker->name,
                 'phone'=>$faker->phoneNumber,
                 'address'=>$faker->address,

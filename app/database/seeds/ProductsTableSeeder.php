@@ -7,13 +7,14 @@ class ProductsTableSeeder extends Seeder {
 
     public function run()
     {
-
         $faker = Faker::create();
 
-	    Product::truncate();
+
+	    $product = new ShopCore\product\ProductRepository();
+	    $product->truncate();
         foreach(range(1, 100) as $index)
         {
-            Product::create(
+	        $product->create(
 	            array(
 		            'name'=>$faker->name,
 		            'price'=>$faker->randomFloat(50,1000),

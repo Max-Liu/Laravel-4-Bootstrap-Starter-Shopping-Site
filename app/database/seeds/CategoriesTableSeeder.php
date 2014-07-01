@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder {
 
         foreach(range(1, 10) as $index)
         {
-            Category::create(array(
+             Category::create(array(
                 'name'=>$faker->name,
                 'created_at'=>date(DB_TIME_FORMAT,time()),
                 'updated_at'=>date(DB_TIME_FORMAT,time())

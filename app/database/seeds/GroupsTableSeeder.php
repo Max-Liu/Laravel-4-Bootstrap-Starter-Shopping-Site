@@ -5,7 +5,7 @@ class GroupsTableSeeder extends Seeder {
 	public function run()
 	{
 
-		Category::truncate();
+		Group::truncate();
 
 		Group::create(array(
 			'id'=>2,
