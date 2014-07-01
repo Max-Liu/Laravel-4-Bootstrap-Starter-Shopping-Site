@@ -11,6 +11,12 @@ App::bind('ShopCore\Order',function(){
 	return new ShopCore\order(new ShopCore\order\OrderValidator(),new ShopCore\order\OrderRepository());
 });
 
+App::bind('ShopCore\image',function(){
+	return new ShopCore\image(new ShopCore\image\ImageValidator(),new ShopCore\image\ImageRepository(),new ShopCore\product\ProductRepository());
+});
+
+
+
 
 
 

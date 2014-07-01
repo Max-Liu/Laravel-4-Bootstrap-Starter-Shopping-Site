@@ -2,8 +2,11 @@
 
 class ImagesController extends \BaseController
 {
-
-    /**
+	public function __construct(ShopCore\Image $image){
+		parent::__construct();
+		$this->image = $image;
+	}
+		/**
      * Display a listing of the resource.
      *
      * @return Response
@@ -33,17 +36,17 @@ class ImagesController extends \BaseController
      */
     public function store()
     {
+	    $input = Input::all();
+	    $validate = $this->image->validator->validateForInsert($input);
 
-        $image = new Image();
-        $result = $image->newImage();
-
-        if (is_object($result)) {
-            $this->responser['error'] = true;
-            $this->responser['msg'] = $result->messages()->first();
-        } else {
-            $this->responser['msg'] = '修改成功';
-        }
-        $this->responser['redirect'] = route('products.edit', Input::input('id'));
+	    if($validate){
+			$this->image->insert($input);
+		    $this->responser['redirect']=route('products.edit',$input['parent_id']);
+	    }else{
+		    $this->responser['redirect'] = route('products.create');
+		    $this->responser['error'] = true;
+		    $this->responser['msg'] = $this->image->validator->errors()->first();
+	    }
         return $this->responses();
     }
 
@@ -77,16 +80,21 @@ class ImagesController extends \BaseController
      */
     public function update($id)
     {
-        $image = new Image();
-        $result = $image->updateImage();
+	    $input = Input::all();
 
-        if (is_object($result)) {
-            $this->responser['error'] = true;
-            $this->responser['msg'] = $result->messages()->first();
-        } else {
-            $this->responser['msg'] = '修改成功';
-        }
-        $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
+	    $validated = $this->image->validator->validateForUpdate($input);
+	    if($validated){
+		    $this->image->update($input);
+		    $this->responser['msg'] = '修改成功';
+		    $this->responser['redirect']=route('products.edit',$input['parent_id']);
+
+	    }else{
+		    $this->responser['error'] = true;
+		    $this->responser['msg'] = $this->image->validator->messages()->first();
+		    $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
+	    }
+
+
         return $this->responses();
     }
 
@@ -98,11 +106,8 @@ class ImagesController extends \BaseController
      */
     public function destroy($id)
     {
-        $image = Image::find($id);
-        unlink(substr($image->path, 1));
-        $image::destroy($id);
-        $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
+	    $this->image->destroy($id);
+	    $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
         return $this->responses();
     }
-
 }
