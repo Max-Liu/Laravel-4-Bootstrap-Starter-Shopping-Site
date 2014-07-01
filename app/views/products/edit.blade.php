@@ -30,7 +30,7 @@
 
 {{Form::open(array('route' =>['images.store'], 'files' => true,'method'=>'post'))}}
 {{Form::file('image')}}
-<input type="hidden" name="id" value="{{$product->id}}"/>
+<input type="hidden" name="parent_id" value="{{$product->id}}"/>
 <button class="btn btn-primary" type="submit">上传</button>
 {{Form::close()}}
 @stop
