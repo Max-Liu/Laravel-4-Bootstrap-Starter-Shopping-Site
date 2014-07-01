@@ -1,27 +1,17 @@
 <?php
 namespace ShopCore\product;
-use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\Translator;
+use ShopCore\core\MyValidator;
 
-class ProductValidator  extends Validator{
+class ProductValidator  extends MyValidator{
 
 
 	public function __construct(){
+		parent::__construct();
 		$this->setRules( array(
 			'name' =>'required|min:5',
 			'price'=>'numeric|required',
 			'stock'=>'required|numeric',
 			'description'=>'required',
 		));
-		$this->setTranslator(new Translator(\Config::get('app.locale')));
-	}
-
-	public function validForUpdate($input){
-		$this->setData($input);
-		if ($this->fails()){
-			return false;
-		}else{
-			return true;
-		}
 	}
 }

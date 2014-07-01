@@ -1,17 +1,17 @@
 <?php
 namespace ShopCore\address;
 
-use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\Translator;
+use ShopCore\core\MyValidator;
 
-class AddressValidator extends Validator
+class AddressValidator extends MyValidator
 {
 
 
 	public function __construct()
 	{
+		parent::__construct();
 		$this->setRules(array(
-			'name' => 'required|min:5',
+			'name' => 'required',
 			'phone' => 'numeric',
 			'address' => 'required',
 			'city' => 'required',
@@ -19,35 +19,6 @@ class AddressValidator extends Validator
 			'user_id' => 'required',
 			'province' => 'required'
 		));
-		$this->setTranslator(new Translator(\Config::get('app.locale')));
-	}
-
-
-	public function user()
-	{
-		return $this->belongsTo('User');
-	}
-
-
-	public function validateForInsert($input)
-	{
-		$this->setData($input);
-		if ($this->fails()) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public function validForUpdate($input)
-	{
-		$this->setData($input);
-		if ($this->fails()) {
-
-			return false;
-		} else {
-			return true;
-		}
 	}
 }
 
