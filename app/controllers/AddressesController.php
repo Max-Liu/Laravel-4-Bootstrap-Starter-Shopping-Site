@@ -3,7 +3,7 @@
 class AddressesController extends \BaseController
 {
 
-	public function __construct(ShopCore\Address $address){
+	public function __construct(ShopCore\address $address){
 		parent::__construct();
 		$this->address = $address;
 	}

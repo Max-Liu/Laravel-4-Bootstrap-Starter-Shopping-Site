@@ -23,7 +23,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * Get the unique identifier for the user.
 	 *
 	 * @return mixed
+	 *
 	 */
+	public function  getRememberToken(){}
+	public function setRememberToken($vale){}
+	public function getRememberTokenName(){
+
+	}
+
+
 	public function getAuthIdentifier()
 	{
 		return $this->getKey();

@@ -11,7 +11,7 @@ class OrderRepository extends \Eloquent
 
 
 	public function address(){
-		return $this->hasOne('address','id','ship_to');
+		return $this->hasOne('ShopCore\address\AddressRepository','id','ship_to');
 	}
 
 

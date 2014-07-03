@@ -175,5 +175,6 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 	),
+	'cipher' => MCRYPT_RIJNDAEL_256
 
 );

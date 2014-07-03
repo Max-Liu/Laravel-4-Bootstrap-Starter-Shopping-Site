@@ -19,7 +19,7 @@ class ProductRepository  extends \Eloquent implements ProductInterface {
 	}
 
 	public function images(){
-		return $this->hasMany('image','parent_id','id')->orderBy('id','desc');
+		return $this->hasMany('ShopCore\image\ImageRepository','parent_id','id')->orderBy('id','desc');
 	}
 
 	public function getStatusString($id){

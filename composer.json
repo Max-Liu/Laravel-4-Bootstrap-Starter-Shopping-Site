@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+        "laravel/framework": "v4.2.6",
 		"way/generators": "2.*",
 		"barryvdh/laravel-ide-helper": "1.*",
         "fzaninotto/faker": "v1.3.0",
@@ -18,8 +18,8 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-            "app/libraries",
-			"app/tests/TestCase.php"
+			"app/tests/TestCase.php",
+            "app/ShopCore"
 		],
         "psr-0":{
             "ShopCore":"app/"

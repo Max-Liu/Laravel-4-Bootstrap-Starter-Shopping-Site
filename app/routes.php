@@ -1,18 +1,18 @@
 <?php
 App::bind('ShopCore\Product',function(){
-	return new ShopCore\product(new ShopCore\product\ProductValidator(),new ShopCore\product\ProductRepository());
+	return new ShopCore\Product(new ShopCore\product\ProductValidator(),new ShopCore\product\ProductRepository());
 });
 
-App::bind('ShopCore\Address',function(){
-	return new ShopCore\address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
-});
+//App::bind('ShopCore\Address',function(){
+//	return new ShopCore\Address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
+//});
 
 App::bind('ShopCore\Order',function(){
-	return new ShopCore\order(new ShopCore\order\OrderValidator(),new ShopCore\order\OrderRepository());
+	return new ShopCore\Order(new ShopCore\order\OrderValidator(),new ShopCore\order\OrderRepository());
 });
 
 App::bind('ShopCore\image',function(){
-	return new ShopCore\image(new ShopCore\image\ImageValidator(),new ShopCore\image\ImageRepository(),new ShopCore\product\ProductRepository());
+	return new ShopCore\Image(new ShopCore\image\ImageValidator(),new ShopCore\image\ImageRepository(),new ShopCore\product\ProductRepository());
 });
 
 
