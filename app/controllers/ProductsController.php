@@ -37,6 +37,21 @@ class ProductsController extends \BaseController {
 	 */
 	public function store()
 	{
+		$input = Input::only(array('name', 'stock', 'description', 'category_id', 'price','status'));
+		$input['user_id']= $this->userId;
+
+		$validate = $this->product->validator->validateForInsert($input);
+
+		if($validate){
+			$this->responser['data']=$this->product->data->createNewProduct($input);
+			$this->responser['redirect'] = route('addresses.index');
+		}else{
+			$this->responser['redirect'] = route('addresses.create');
+			$this->responser['error'] = true;
+			$this->responser['msg'] = $this->product->validator->messages()->first();
+			$this->responser['data'] = $input;
+		}
+		return $this->responses();
 		//
 	}
 
@@ -77,11 +92,11 @@ class ProductsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::only('name','price','status','stock','description');
-		$isValid = $this->product->validator->validForUpdate($input);
+		$input = Input::only('name','price','status','stock','description','category_id');
+		$isValid = $this->product->validator->validateForUpdate($input);
 
 		if ($isValid){
-			$this->product->db->find($id)->fill($input)->save();
+			$this->product->data->find($id)->fill($input)->save();
 			$this->responser['msg']= '修改成功';
 		}else{
 			$this->responser['error']= true;

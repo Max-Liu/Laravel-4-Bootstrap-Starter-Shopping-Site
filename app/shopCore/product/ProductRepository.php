@@ -3,7 +3,8 @@ namespace ShopCore\product;
 
 class ProductRepository  extends \Eloquent implements ProductInterface {
 
-	protected $fillable = ['name','price','stock','description'];
+	protected $fillable = ['name','price','stock','description','status','category_id'];
+
 	protected $table = 'products';
 
 	function getProductList(){
@@ -31,6 +32,10 @@ class ProductRepository  extends \Eloquent implements ProductInterface {
 				return '线上';
 			}
 		}
+	}
+
+	public function createNewProduct($product){
+		return $this->create($product)->id;
 	}
 }
 
