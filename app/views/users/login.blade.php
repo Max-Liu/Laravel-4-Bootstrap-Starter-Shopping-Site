@@ -8,9 +8,7 @@
 
 <form class="form-signin" role="form" method="post" action="/user/login">
     <h2 class="form-signin-heading">Please sign in</h2>
-@if (Session::get('error'))
-    <p class="bg-danger">{{Session::get('error')}}</p>
-@endif
+
     <input type="email" class="form-control" placeholder="Email address" name="email" required autofocus>
     <input type="password" class="form-control" placeholder="Password" name="password" required>
     <label class="checkbox">
