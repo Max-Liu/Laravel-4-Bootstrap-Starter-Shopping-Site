@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->text('username');
 	        $table->tinyInteger('group_id')->default(1);
 			$table->timestamps();
+	        $table->text('remember_token');
         });
 	}
 
