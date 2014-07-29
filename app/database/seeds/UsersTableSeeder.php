@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder {
 
         foreach(range(1, 100) as $index)
         {
+
             $user->create([
                 'email'=>$faker->email,
                 'phone'=>$faker->phoneNumber,
