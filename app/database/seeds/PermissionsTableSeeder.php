@@ -26,12 +26,13 @@ class PermissionsTableSeeder extends Seeder
 			2 => 'user',
 			3 => 'staff',
 		);
+		$permission = new ShopCore\permission\PermissionRepository();
 
 
 		foreach ($modules as $module) {
 			foreach ($groups as $key => $group) {
 				if ($key == 1) {
-					Permission::create([
+					$permission->create([
 						'group_id' => $key,
 						'module' => $module,
 						'roles' => serialize(array(
@@ -45,7 +46,7 @@ class PermissionsTableSeeder extends Seeder
 						)),
 					]);
 				} else {
-					Permission::create([
+					$permission->create([
 						'group_id' => $key,
 						'module' => $module,
 						'roles' => serialize(array(

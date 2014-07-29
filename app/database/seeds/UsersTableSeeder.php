@@ -8,16 +8,17 @@ class UsersTableSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
+	    $user = new ShopCore\user\UserRepository();
 
         foreach(range(1, 100) as $index)
         {
-            User::create([
+            $user->create([
                 'email'=>$faker->email,
                 'phone'=>$faker->phoneNumber,
                 'username'=>$faker->userName,
             ]);
         }
-        User::create([
+        $user->create([
             'email'=>'admin@gmail.com',
             'password'=>'$2y$10$sbSxacLzIlhZ76rK9JWNK.YSC8ZEKvJ4vadFIhWQ0s/jaNiLoQt0G',
 	        'username'=>'Max'
