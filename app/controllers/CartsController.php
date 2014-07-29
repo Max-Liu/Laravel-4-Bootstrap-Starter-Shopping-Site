@@ -7,9 +7,9 @@ class CartsController extends \BaseController
 
     function __construct(Illuminate\Session\Store $session)
     {
+	    parent::__construct();
 	    $this->cart = new \ShopCore\Cart($session);
         $this->beforeFilter('csrf', array('on' => 'post'));
-
     }
 
     /**

@@ -4,6 +4,7 @@ class ProductsController extends \BaseController {
 
 
 	public function __construct(ShopCore\Product $product){
+		parent::__construct();
 		$this->product = $product;
 	}
 

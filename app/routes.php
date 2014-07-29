@@ -3,9 +3,9 @@ App::bind('ShopCore\Product',function(){
 	return new ShopCore\Product(new ShopCore\product\ProductValidator(),new ShopCore\product\ProductRepository());
 });
 
-//App::bind('ShopCore\Address',function(){
-//	return new ShopCore\Address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
-//});
+App::bind('ShopCore\Address',function(){
+	return new ShopCore\Address(new ShopCore\address\AddressValidator(), new ShopCore\address\AddressRepository());
+});
 
 App::bind('ShopCore\Order',function(){
 	return new ShopCore\Order(new ShopCore\order\OrderValidator(),new ShopCore\order\OrderRepository());
@@ -14,6 +14,15 @@ App::bind('ShopCore\Order',function(){
 App::bind('ShopCore\image',function(){
 	return new ShopCore\Image(new ShopCore\image\ImageValidator(),new ShopCore\image\ImageRepository(),new ShopCore\product\ProductRepository());
 });
+
+App::bind('ShopCore\Permission',function(){
+	return new ShopCore\Permission(new ShopCore\permission\PermissionRepository(),new ShopCore\user\UserRepository());
+});
+
+App::bind('ShopCore\User',function(){
+	return new ShopCore\User(new ShopCore\user\UserRepository());
+});
+
 
 
 

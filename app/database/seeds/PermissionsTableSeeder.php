@@ -1,6 +1,8 @@
 <?php
 use Faker\Factory as Faker;
-class PermissionsTableSeeder extends Seeder {
+
+class PermissionsTableSeeder extends Seeder
+{
 
 	public function run()
 	{
@@ -20,27 +22,43 @@ class PermissionsTableSeeder extends Seeder {
 		);
 
 		$groups = array(
-			1=>'admin',
-			2=>'user',
-			3=>'staff',
+			1 => 'admin',
+			2 => 'user',
+			3 => 'staff',
 		);
 
 
-		foreach ($modules as $module){
-			foreach ($groups as $key =>$group){
-				Permission::create([
-					'group_id'=>$key,
-					'module'=>$module,
-					'roles'=>serialize(array(
-						'update'=>$faker->randomNumber(0,1),
-						'show'=>$faker->randomNumber(0,1),
-						'index'=>$faker->randomNumber(0,1),
-						'create'=>$faker->randomNumber(0,1),
-						'store'=>$faker->randomNumber(0,1),
-						'edit'=>$faker->randomNumber(0,1),
-						'destroy'=>$faker->randomNumber(0,1),
-					)),
-				]);
+		foreach ($modules as $module) {
+			foreach ($groups as $key => $group) {
+				if ($key == 1) {
+					Permission::create([
+						'group_id' => $key,
+						'module' => $module,
+						'roles' => serialize(array(
+							'update' => 1,
+							'show' => 1,
+							'index' => 1,
+							'create' => 1,
+							'store' => 1,
+							'edit' => 1,
+							'destroy' => 1,
+						)),
+					]);
+				} else {
+					Permission::create([
+						'group_id' => $key,
+						'module' => $module,
+						'roles' => serialize(array(
+							'update' => $faker->randomNumber(0, 1),
+							'show' => $faker->randomNumber(0, 1),
+							'index' => $faker->randomNumber(0, 1),
+							'create' => $faker->randomNumber(0, 1),
+							'store' => $faker->randomNumber(0, 1),
+							'edit' => $faker->randomNumber(0, 1),
+							'destroy' => $faker->randomNumber(0, 1),
+						)),
+					]);
+				}
 			}
 		}
 	}

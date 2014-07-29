@@ -24,24 +24,23 @@ class BaseController extends Controller
 
 	public function __construct()
 	{
+		$permission = new ShopCore\Permission(new ShopCore\permission\PermissionRepository(), new ShopCore\user\UserRepository());
+
 		if (Auth::check()) {
 			$this->userId = Auth::user()->getAuthIdentifier();
-			$groupId = User::find($this->userId)->getAttribute('group_id');
-//	        $permissionInfo = Permission::where('group_id','=',$groupId)->get()->toArray();
-//	        foreach ($permissionInfo as $permission){
-//		        $roles = unserialize($permission['roles']);
-//		        foreach($roles as $key=>$role){
-//			        if($permission['module'].'.'.$key == Route::getCurrentRoute()->getName()){
-//				       if ($role == 0 ){
-//					       $this->responser['error'] = true;
-//					      echo $this->responser['msg']='没有权限';exit;
-//				       }
-//			        }
-//		        }
-//	        }
+			$currentRouteName =  Route::getCurrentRoute()->getName();
+
+			if($permission->hasPermission($this->userId,$currentRouteName)){
+
+
+			}else{
+//				$this->responser['error'] = true;
+//				$this->responser['msg']='没有权限';
+				app::abort(403);
+			};
+
 		}
 	}
-
 	protected function responses()
 	{
 		$responser = $this->responser;

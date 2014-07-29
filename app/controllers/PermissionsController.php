@@ -7,11 +7,20 @@ class PermissionsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+	public function __construct(ShopCore\Permission $permission,ShopCore\user\UserRepository $user){
+
+		parent::__construct();
+		$this->permission = $permission;
+	}
+
 	public function index()
 	{
-		$group = Input::get('group');
-		$groupList = Group::all();
-		$permissionList = Permission::with(['group'])->where('group_id','=',$group)->get();
+		$groupInput = Input::get('group');
+		$group = new ShopCore\permission\GroupRepository();
+		$groupList = $group->all();
+
+
+		$permissionList = $this->permission->data->with(['group'])->where('group_id','=',$groupInput)->get();
 		$this->responser['data'] = compact('permissionList','groupList');
 		$this->responser['viewPath'] = 'permissions.index';
 		return $this->responses();
@@ -56,7 +65,7 @@ class PermissionsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$permission = Permission::with(['group'])->find($id);
+		$permission = $this->permission->with(['group'])->find($id);
 		$this->responser['data'] = compact('permission');
 		$this->responser['viewPath'] = 'permissions.edit';
 		return $this->responses();
@@ -89,7 +98,7 @@ class PermissionsController extends \BaseController {
 				$role =0;
 			}
 		}
-		$permission = Permission::find($id);
+		$permission = $this->permission->data->find($id);
 		$permission->module = $input['module'];
 		$permission->group_id = $input['group'];
 		$permission->roles = serialize($roles);
