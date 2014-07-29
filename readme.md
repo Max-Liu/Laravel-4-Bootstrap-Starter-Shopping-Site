@@ -14,7 +14,6 @@ This is a shopping starter site for [Laravel](http://laravel.com),which could le
 - **Website:** [http://iseemax.com](http://iseemax.com/)
 - **Version:** 0.3
 
-[![Build Status](https://travis-ci.org/FrozenNode/Laravel-Administrator.png?branch=master)](https://travis-ci.org/FrozenNode/Laravel-Administrator)
 
 
 
@@ -28,15 +27,11 @@ This is a shopping starter site for [Laravel](http://laravel.com),which could le
 
 ## Install
 
-- git clone https://github.com/Max-Liu/Laravel-4-Bootstrap-Starter-Shopping-Site.git ./
+- git clone https://github.com/Max-Liu/Laravel-4-Bootstrap-Starter-Shopping-Site.git ./ --depth=1
 
 - Add a New Database in your Database.And edit database config file(app/config/database.php)
 
-- Composer update
-
-- go to project root. php artisan migrate, php artisan migrate:refresh --seed
-
-- chmod 777 app/storage -R
+- go to project root.Run command:"php artisan migrate --seed && chmod 777 app/storage -R"
 
 - That's it! (Default user:admin@gmail.com,password:admin12345)
 
