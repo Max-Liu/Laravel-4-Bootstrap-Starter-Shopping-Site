@@ -5,8 +5,9 @@ namespace ShopCore;
 class Permission  {
 	protected $table = 'permissions';
 
-	function __construct(permission\PermissionRepository $data,user\UserRepository $user){
+	function __construct(permission\PermissionRepository $data,user\UserRepository $user,permission\GroupRepository $group){
 		$this->data = $data;
+		$this->group = $group;
 		$this->user = $user;
 	}
 

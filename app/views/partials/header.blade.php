@@ -9,5 +9,10 @@
     @else
     <li><a href="/user/login">登陆</a></li>
     @endif
+
+	@if(Session::get('userInfo')['group_id'] ==1)
+	<li><a href="/permissions">权限管理</a></li>
+
+	@endif
 </ul>
 
