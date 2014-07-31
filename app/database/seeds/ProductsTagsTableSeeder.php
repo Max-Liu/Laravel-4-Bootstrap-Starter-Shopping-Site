@@ -9,11 +9,11 @@ class ProductsTagsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach(range(1, 100) as $index)
+        foreach(range(1, 500) as $index)
         {
             ProductsTag::create([
                 'product_id'=>$faker->numberBetween(1,100),
-                'tag_id'=>$faker->numberBetween(1,10),
+                'tag_id'=>$faker->numberBetween(1,50),
                 'created_at'=>date(DB_TIME_FORMAT,time()),
                 'updated_at'=>date(DB_TIME_FORMAT,time())
             ]);

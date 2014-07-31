@@ -9,7 +9,7 @@ class TagsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach(range(1, 10) as $index)
+        foreach(range(1, 50) as $index)
         {
             Tag::create(
                 array(
