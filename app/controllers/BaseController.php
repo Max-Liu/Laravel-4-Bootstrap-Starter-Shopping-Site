@@ -25,16 +25,12 @@ class BaseController extends Controller
 	public function __construct()
 	{
 		$permission = new ShopCore\Permission(new ShopCore\permission\PermissionRepository(), new ShopCore\user\UserRepository(),new ShopCore\permission\GroupRepository());
-
 		if (Auth::check()) {
 			$this->userId = Auth::user()->getAuthIdentifier();
-			$this->userInfo = $permission->user->find($this->userId)->toArray();
-			$this->userInfo['group_name'] =$permission->group->getGroupName($this->userInfo['group_id']);
-
-			Session::put('user_info',$this->userInfo);
+			$this->userInfo['group_name'] =$permission->group->getGroupName(Auth::user()->group_id);
 
 			$currentRouteName =  Route::getCurrentRoute()->getName();
-			if($permission->hasPermission($this->userId,$currentRouteName)){
+			if($permission->hasPermission(Auth::user()->group_id,$currentRouteName)){
 
 			}else{
 //				$this->responser['error'] = true;

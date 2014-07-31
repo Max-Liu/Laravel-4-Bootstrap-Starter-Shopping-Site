@@ -11,8 +11,7 @@ class Permission  {
 		$this->user = $user;
 	}
 
-	public function hasPermission($userId,$currentRouteName){
-		$groupId = $this->user->find($userId)->getAttribute('group_id');
+	public function hasPermission($groupId,$currentRouteName){
 		$permissionInfo = $this->data->where('group_id','=',$groupId)->get()->toArray();
 		foreach ($permissionInfo as $permission){
 			$roles = unserialize($permission['roles']);
