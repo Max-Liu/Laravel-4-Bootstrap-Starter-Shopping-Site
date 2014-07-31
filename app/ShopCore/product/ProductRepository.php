@@ -16,7 +16,7 @@ class ProductRepository  extends \Eloquent implements ProductInterface {
 	}
 
 	public function tags(){
-		return $this->belongsToMany('tag','products_tags','product_id','tag_id');
+		return $this->belongsToMany('ShopCore\tag\TagRepository','products_tags','product_id','tag_id');
 	}
 
 	public function images(){
