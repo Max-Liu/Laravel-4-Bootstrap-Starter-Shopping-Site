@@ -64,9 +64,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-
 		$product = $this->product->data->with(['images'])->find($id);
-        $this->responser['data'] = compact('product');
+		$tags = $product->tags()->get();
+        $this->responser['data'] = compact('product','tags');
         $this->responser['viewPath'] = 'products.info';
         return $this->responses();
 	}

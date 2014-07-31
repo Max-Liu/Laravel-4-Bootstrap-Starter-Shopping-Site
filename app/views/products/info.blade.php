@@ -10,6 +10,11 @@
     <p>{{$product->description}}</p>
     <p><b>价格:</b>{{$product->price}}</p>
     <p><b>数量:</b>{{$product->stock}}</p>
+	<p>标签:
+@foreach($tags as $tag)
+	<a href="{{route('tags.show',$tag->id)}}">{{$tag->name}}</a>
+@endforeach
+	</p>
 
     <div>
         {{ Form::open(array('route' => 'carts.store', 'method' => 'post'))}}

@@ -1,6 +1,12 @@
 <?php
 
 class TagsController extends \BaseController {
+	function __construct(ShopCore\tag\TagRepository $tag,ShopCore\tag\TagRelationRepository $tagRelation)
+	{
+		parent::__construct();
+		$this->tag= $tag;
+		$this->tagRelation = $tagRelation;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -9,11 +15,12 @@ class TagsController extends \BaseController {
 	 */
 	public function index()
 	{
-        $tag = Tag::where('name','=','lime')->first();
+		$tags = $this->tag->all();
 
-        foreach ($tag->products as $product){
-            echo $product->name.' '.$product->price;
-        }
+		$this->responser['data']= compact('tags');
+		$this->responser['viewPath'] = 'tags.list';
+		return $this->responses();
+
 	}
 
 	/**
@@ -42,9 +49,13 @@ class TagsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($id = 1)
 	{
-		//
+		$tag = $this->tag->find($id);
+		$products = $tag->products()->get();
+		$this->responser['data']= compact('products','tag');
+		$this->responser['viewPath'] = 'tags.info';
+		return $this->responses();
 	}
 
 	/**
