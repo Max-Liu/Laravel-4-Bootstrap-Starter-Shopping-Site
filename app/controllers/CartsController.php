@@ -50,8 +50,9 @@ class CartsController extends \BaseController
         $product['name'] = $this->cart->product->data->find($product['id'])->name;
 
         $this->cart->insert($product);
-
-        return Redirect::route('carts.index');
+	    $this->responser['msg']= trans('message.insert_success');
+	    $this->responser['redirect']= route('carts.index');
+		return  $this->responses();
     }
 
     /**
@@ -100,7 +101,9 @@ class CartsController extends \BaseController
         } else {
             $this->cart->remove($id);
         }
-        return Redirect::route('carts.index');
+	    $this->responser['redirect'] =route('carts.index');
+	    $this->responser['msg']= trans('message.delete_success');
+	   return $this->responses();
     }
 
 }

@@ -104,7 +104,7 @@ class PermissionsController extends \BaseController {
 		$permission->roles = serialize($roles);
 		$permission->save();
 
-
+		$this->responser['msg']= trans('message.update_success');
 		$this->responser['redirect'] = route('permissions.index').'?group='.$input['group'];
 		return $this->responses();
 	}

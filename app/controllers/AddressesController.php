@@ -43,6 +43,7 @@ class AddressesController extends \BaseController
 	    if($validate){
 		    $this->address->data->createNewAddress($input);
 		    $this->responser['redirect'] = route('addresses.index');
+		    $this->responser['msg']= trans('message.insert_success');
 	    }else{
 		    $this->responser['redirect'] = route('addresses.create');
 		    $this->responser['error'] = true;
@@ -93,6 +94,7 @@ class AddressesController extends \BaseController
 	    if($validate){
 		    $this->address->data->updateAddress($input,$id);
 		    $this->responser['redirect'] = route('addresses.index');
+		    $this->responser['msg']= trans('message.update_success');
 	    }else{
 		    $this->responser['redirect'] = route('addresses.create');
 		    $this->responser['error'] = true;
@@ -116,7 +118,10 @@ class AddressesController extends \BaseController
                 $this->address->data->destroy($id);
             }
         }
-        return Redirect::to(route('addresses.index'));
+
+	    $this->responser['msg']= trans('message.delete_success');
+	    $this->responser['redirect']= route('addresses.index');
+        return $this->responses();
     }
 
     public function setDefault($id){

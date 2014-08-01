@@ -46,6 +46,7 @@ class ProductsController extends \BaseController {
 		if($validate){
 			$this->responser['data']=$this->product->data->createNewProduct($input);
 			$this->responser['redirect'] = route('addresses.index');
+			$this->responser['msg']= trans('message.insert_success');
 		}else{
 			$this->responser['redirect'] = route('addresses.create');
 			$this->responser['error'] = true;

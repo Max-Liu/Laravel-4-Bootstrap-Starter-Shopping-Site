@@ -26,7 +26,7 @@ class ImagesController extends \BaseController
     public function create()
     {
         $this->responser['viewPath'] = 'images.create';
-        $this->responses($this->responser);
+        return $this->responses($this->responser);
     }
 
     /**
@@ -42,6 +42,7 @@ class ImagesController extends \BaseController
 	    if($validate){
 			$this->image->insert($input);
 		    $this->responser['redirect']=route('products.edit',$input['parent_id']);
+		    $this->responser['msg']= trans('message.insert_success');
 	    }else{
 		    $this->responser['redirect'] = route('products.create');
 		    $this->responser['error'] = true;
@@ -85,9 +86,9 @@ class ImagesController extends \BaseController
 	    $validated = $this->image->validator->validateForUpdate($input);
 	    if($validated){
 		    $this->image->update($input);
-		    $this->responser['msg'] = '修改成功';
+		    $this->responser['msg']= trans('message.update_success');
 		    $this->responser['redirect']=route('products.edit',$input['parent_id']);
-
+		    $this->responser['msg']= trans('message.update_success');
 	    }else{
 		    $this->responser['error'] = true;
 		    $this->responser['msg'] = $this->image->validator->messages()->first();
@@ -108,6 +109,7 @@ class ImagesController extends \BaseController
     {
 	    $this->image->destroy($id);
 	    $this->responser['redirect'] = route('products.edit', Input::input('parent_id'));
+	    $this->responser['msg']= trans('message.delete_success');
         return $this->responses();
     }
 }

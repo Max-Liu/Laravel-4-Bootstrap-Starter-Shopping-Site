@@ -24,10 +24,9 @@ class OrdersController extends \BaseController
     public function index()
     {
 	    $dataObjects =$this->order->data->getUserOrderList($this->userId);
-
 	    $order = $this->order;
-
         $this->responser['data'] = compact('dataObjects','order');
+
         $this->responser['viewPath'] = 'orders.list';
         return $this->responses();
     }
@@ -57,11 +56,9 @@ class OrdersController extends \BaseController
                 $this->responser['msg'] = '该地址不属于此用户';
                 $this->responser['redirect'] = url('checkout');
             }
-
 	        $this->order->newOrder($input['ship_to'],$this->userId,$this->cart);
             $this->responser['redirect'] = route('orders.index');
-
-
+	        $this->responser['msg']= trans('message.insert_success');
         } else {
 
             $this->responser['error'] = true;
