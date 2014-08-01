@@ -88,7 +88,9 @@ class TagsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->tagRelation->where('tag_id',"=",$id)->delete();
+		$this->responser['msg']= trans('message.delete_success');
+		return $this->responses();
 	}
 
 }
