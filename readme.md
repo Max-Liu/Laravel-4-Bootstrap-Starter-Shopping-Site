@@ -35,6 +35,14 @@ This is a shopping starter site for [Laravel](http://laravel.com),which could le
 
 - That's it! (Default user:admin@gmail.com,password:admin12345)
 
+##Feature
+- Following the idea from the laravel author's book [Laravel: From Apprentice To Artisan](https://leanpub.com/laravel)
+- One URL for both webside view and Json formated data.
+- component structure.
+
+
+
+
 
 
 
