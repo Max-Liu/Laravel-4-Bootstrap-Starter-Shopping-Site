@@ -6,7 +6,8 @@ use Symfony\Component\Translation\Translator;
 
 class MyValidator extends Validator
 {
-	public function __construct(){
+	public function __construct()
+	{
 		$this->setTranslator(new Translator(\Config::get('app.locale')));
 		$this->setFallbackMessages(trans('validation'));
 	}

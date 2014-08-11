@@ -1,14 +1,15 @@
 <?php
 
-class PermissionsController extends \BaseController {
+class PermissionsController extends \BaseController
+{
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function __construct(ShopCore\Permission $permission,ShopCore\user\UserRepository $user){
-
+	public function __construct(ShopCore\Permission $permission, ShopCore\user\UserRepository $user)
+	{
 		parent::__construct();
 		$this->permission = $permission;
 	}
@@ -18,10 +19,9 @@ class PermissionsController extends \BaseController {
 		$groupInput = Input::get('group');
 		$group = new ShopCore\permission\GroupRepository();
 		$groupList = $group->all();
+		$permissionList = $this->permission->data->with(['group'])->where('group_id', '=', $groupInput)->get();
 
-
-		$permissionList = $this->permission->data->with(['group'])->where('group_id','=',$groupInput)->get();
-		$this->responser['data'] = compact('permissionList','groupList');
+		$this->responser['data'] = compact('permissionList', 'groupList');
 		$this->responser['viewPath'] = 'permissions.index';
 		return $this->responses();
 	}
@@ -49,7 +49,7 @@ class PermissionsController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function show($id)
@@ -60,7 +60,7 @@ class PermissionsController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function edit($id)
@@ -74,7 +74,7 @@ class PermissionsController extends \BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function update($id)
@@ -93,9 +93,9 @@ class PermissionsController extends \BaseController {
 			'destroy'
 		));
 
-		foreach ($roles as &$role){
-			if(is_null($role)){
-				$role =0;
+		foreach ($roles as &$role) {
+			if (is_null($role)) {
+				$role = 0;
 			}
 		}
 		$permission = $this->permission->data->find($id);
@@ -104,15 +104,15 @@ class PermissionsController extends \BaseController {
 		$permission->roles = serialize($roles);
 		$permission->save();
 
-		$this->responser['msg']= trans('message.update_success');
-		$this->responser['redirect'] = route('permissions.index').'?group='.$input['group'];
+		$this->responser['msg'] = trans('message.update_success');
+		$this->responser['redirect'] = route('permissions.index') . '?group=' . $input['group'];
 		return $this->responses();
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function destroy($id)

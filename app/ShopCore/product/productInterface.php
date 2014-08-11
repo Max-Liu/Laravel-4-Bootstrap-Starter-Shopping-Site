@@ -1,10 +1,11 @@
 <?php
 namespace ShopCore\product;
 
-interface ProductInterface {
+interface ProductInterface
+{
 
 
-public function getProductList();
+	public function getProductList();
 
 }
 

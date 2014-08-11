@@ -17,11 +17,11 @@ class AddressRepository extends \Eloquent
 		$this->create($input);
 	}
 
-	public function updateAddress($input,$addressId)
+	public function updateAddress($input, $addressId)
 	{
-			$address = $this->find($addressId);
-			$address->fill($input);
-			$address->save();
+		$address = $this->find($addressId);
+		$address->fill($input);
+		$address->save();
 	}
 
 	public function user()

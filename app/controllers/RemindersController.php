@@ -1,6 +1,7 @@
 <?php
 
-class RemindersController extends \BaseController {
+class RemindersController extends \BaseController
+{
 
 	/**
 	 * Display the password reminder view.
@@ -19,11 +20,9 @@ class RemindersController extends \BaseController {
 	 */
 	public function postRemind()
 	{
-        $response = Password::remind(Input::only('email'));
+		$response = Password::remind(Input::only('email'));
 
-		switch ($response = Password::remind(Input::only('email')))
-
-		{
+		switch ($response = Password::remind(Input::only('email'))) {
 			case Password::INVALID_USER:
 				return Redirect::back()->with('error', Lang::get($response));
 
@@ -35,13 +34,13 @@ class RemindersController extends \BaseController {
 	/**
 	 * Display the password reset view for the given token.
 	 *
-	 * @param  string  $token
+	 * @param  string $token
 	 * @return Response
 	 */
 	public function getReset($token = null)
 	{
 		if (is_null($token)) App::abort(404);
-        $this->layout->contents = View::make('users.reset')->with('token', $token);
+		$this->layout->contents = View::make('users.reset')->with('token', $token);
 	}
 
 	/**
@@ -55,14 +54,12 @@ class RemindersController extends \BaseController {
 			'email', 'password', 'password_confirmation', 'token'
 		);
 
-		$response = Password::reset($credentials, function($user, $password)
-		{
+		$response = Password::reset($credentials, function ($user, $password) {
 			$user->password = Hash::make($password);
 			$user->save();
 		});
 
-		switch ($response)
-		{
+		switch ($response) {
 			case Password::INVALID_PASSWORD:
 			case Password::INVALID_TOKEN:
 			case Password::INVALID_USER:

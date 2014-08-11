@@ -5,12 +5,13 @@ use ShopCore\core\MyValidator;
 
 class ImageValidator extends MyValidator
 {
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 		$this->setRules(
 			array(
 				'parent_id' => 'required',
-				'image'=>'required|mimes:jpeg,png'
+				'image' => 'required|mimes:jpeg,png'
 			)
 		);
 	}

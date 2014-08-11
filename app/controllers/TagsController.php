@@ -1,10 +1,11 @@
 <?php
 
-class TagsController extends \BaseController {
-	function __construct(ShopCore\tag\TagRepository $tag,ShopCore\tag\TagRelationRepository $tagRelation)
+class TagsController extends \BaseController
+{
+	function __construct(ShopCore\tag\TagRepository $tag, ShopCore\tag\TagRelationRepository $tagRelation)
 	{
 		parent::__construct();
-		$this->tag= $tag;
+		$this->tag = $tag;
 		$this->tagRelation = $tagRelation;
 	}
 
@@ -17,7 +18,7 @@ class TagsController extends \BaseController {
 	{
 		$tags = $this->tag->all();
 
-		$this->responser['data']= compact('tags');
+		$this->responser['data'] = compact('tags');
 		$this->responser['viewPath'] = 'tags.list';
 		return $this->responses();
 
@@ -46,14 +47,14 @@ class TagsController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function show($id = 1)
 	{
 		$tag = $this->tag->find($id);
 		$products = $tag->products()->get();
-		$this->responser['data']= compact('products','tag');
+		$this->responser['data'] = compact('products', 'tag');
 		$this->responser['viewPath'] = 'tags.info';
 		return $this->responses();
 	}
@@ -61,7 +62,7 @@ class TagsController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function edit($id)
@@ -72,7 +73,7 @@ class TagsController extends \BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function update($id)
@@ -83,13 +84,13 @@ class TagsController extends \BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		$this->tagRelation->where('tag_id',"=",$id)->delete();
-		$this->responser['msg']= trans('message.delete_success');
+		$this->tagRelation->where('tag_id', "=", $id)->delete();
+		$this->responser['msg'] = trans('message.delete_success');
 		return $this->responses();
 	}
 

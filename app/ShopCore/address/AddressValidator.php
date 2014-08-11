@@ -5,8 +5,6 @@ use ShopCore\core\MyValidator;
 
 class AddressValidator extends MyValidator
 {
-
-
 	public function __construct()
 	{
 		parent::__construct();

@@ -1,5 +1,6 @@
 <?php
 namespace ShopCore;
+
 use Illuminate\Session\Store;
 use ShopCore\product\ProductRepository;
 use ShopCore\product\ProductValidator;
@@ -9,18 +10,18 @@ use ShopCore\product\ProductValidator;
  */
 class Cart
 {
-	 public function __construct(Store $session)
+	public function __construct(Store $session)
 	{
 		$this->session = $session;
-		$this->product = new Product(new ProductValidator(),new ProductRepository());
+		$this->product = new Product(new ProductValidator(), new ProductRepository());
 
-		$this->_cartContents =$this->session->get('cartContents');
+		$this->_cartContents = $this->session->get('cartContents');
 		if (!$this->_cartContents) {
-			$this->_cartContents = array('totalItems' => 0,'cartTotal'=>0);
+			$this->_cartContents = array('totalItems' => 0, 'cartTotal' => 0);
 		}
 	}
 
-		public $product_name_safe = true;
+	public $product_name_safe = true;
 	/**
 	 *
 	 * These are the regular expression rules that we use to validate the product ID and product name

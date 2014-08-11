@@ -1,6 +1,7 @@
 <?php
 
-class UsersController extends \BaseController {
+class UsersController extends \BaseController
+{
 
 	/**
 	 * Display a listing of the resource.
@@ -35,7 +36,7 @@ class UsersController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function show($id)
@@ -46,7 +47,7 @@ class UsersController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function edit($id)
@@ -57,7 +58,7 @@ class UsersController extends \BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function update($id)
@@ -68,7 +69,7 @@ class UsersController extends \BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function destroy($id)
@@ -76,25 +77,28 @@ class UsersController extends \BaseController {
 		//
 	}
 
-    public function getLogin(){
-       $this->layout->content = View::make('users.login');
-    }
+	public function getLogin()
+	{
+		$this->layout->content = View::make('users.login');
+	}
 
-    public function getLogout(){
-        Auth::logout();
-        return Redirect::intended();
-    }
+	public function getLogout()
+	{
+		Auth::logout();
+		return Redirect::intended();
+	}
 
 
-    public function postLogin(){
-        $email = Input::get('email');
-        $password = Input::get('password');
-        if(Auth::attempt(array('email'=>$email,'password'=>$password))){
-            return Redirect::intended();
-        }else{
-            Session::flash('error','密码错误');
-            return Redirect::to('/user/login');
-        }
-    }
+	public function postLogin()
+	{
+		$email = Input::get('email');
+		$password = Input::get('password');
+		if (Auth::attempt(array('email' => $email, 'password' => $password))) {
+			return Redirect::intended();
+		} else {
+			Session::flash('error', '密码错误');
+			return Redirect::to('/user/login');
+		}
+	}
 
 }

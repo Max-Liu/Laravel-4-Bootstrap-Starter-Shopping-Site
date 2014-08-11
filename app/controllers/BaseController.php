@@ -33,8 +33,6 @@ class BaseController extends Controller
 			if($permission->hasPermission(Auth::user()->group_id,$currentRouteName)){
 
 			}else{
-//				$this->responser['error'] = true;
-//				$this->responser['msg']='没有权限';
 				app::abort(403);
 			};
 
@@ -90,5 +88,4 @@ class BaseController extends Controller
 			$this->layout = View::make($this->layout);
 		}
 	}
-
 }

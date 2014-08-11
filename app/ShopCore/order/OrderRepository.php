@@ -3,15 +3,13 @@ namespace ShopCore\order;
 
 class OrderRepository extends \Eloquent
 {
-
-	protected $fillable = ['status','price_total','ship_to'];
+	protected $fillable = ['status', 'price_total', 'ship_to'];
 	protected $table = 'orders';
 
 
-
-
-	public function address(){
-		return $this->hasOne('ShopCore\address\AddressRepository','id','ship_to');
+	public function address()
+	{
+		return $this->hasOne('ShopCore\address\AddressRepository', 'id', 'ship_to');
 	}
 
 
@@ -21,11 +19,13 @@ class OrderRepository extends \Eloquent
 	}
 
 
-	public function orderItems(){
+	public function orderItems()
+	{
 		return $this->hasMany('orderItem');
 	}
 
-	public function getUserOrderList($userId){
+	public function getUserOrderList($userId)
+	{
 		return $this->with(['address'])->where('user_id', '=', $userId)->orderBy('created_at', 'desc')->get();
 	}
 }

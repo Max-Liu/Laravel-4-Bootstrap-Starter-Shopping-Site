@@ -10,12 +10,11 @@ class Address
 		$this->data = $data;
 	}
 
-
-	public function setDefault($addressId,$userId)
+	public function setDefault($addressId, $userId)
 	{
 		$address = $this->data->find($addressId);
-		if ($address->exists){
-			$address->where('user_id','=',$userId)->update(array('is_default'=>0));
+		if ($address->exists) {
+			$address->where('user_id', '=', $userId)->update(array('is_default' => 0));
 			$address->is_default = 1;
 			$address->save();
 		}

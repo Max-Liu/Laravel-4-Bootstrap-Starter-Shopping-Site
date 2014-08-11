@@ -1,6 +1,7 @@
 <?php
 
-class CategoriesController extends \BaseController {
+class CategoriesController extends \BaseController
+{
 
 	/**
 	 * Display a listing of the resource.
@@ -35,7 +36,7 @@ class CategoriesController extends \BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function show($id)
@@ -46,7 +47,7 @@ class CategoriesController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function edit($id)
@@ -57,7 +58,7 @@ class CategoriesController extends \BaseController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function update($id)
@@ -68,7 +69,7 @@ class CategoriesController extends \BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int $id
 	 * @return Response
 	 */
 	public function destroy($id)

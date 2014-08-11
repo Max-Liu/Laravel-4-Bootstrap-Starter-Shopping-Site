@@ -14,7 +14,8 @@ class Order
 	const PAID = 1;
 
 
-	public function __construct(order\OrderValidator $validator,order\OrderRepository $data){
+	public function __construct(order\OrderValidator $validator, order\OrderRepository $data)
+	{
 		$this->validator = $validator;
 		$this->data = $data;
 		$this->product = new ProductRepository();
@@ -22,16 +23,14 @@ class Order
 
 	}
 
-	public function newOrder($shipTo, $userId,$cart)
+	public function newOrder($shipTo, $userId, $cart)
 	{
 		$this->data->user_id = $userId;
 		$this->data->status = self::UNPAID;
 		$this->data->ship_to = $shipTo;
 		$this->data->save();
 
-
 		$cartContents = $cart->contents();
-
 		$cartProductIdList = array();
 
 		foreach ($cartContents as $cartProduct) {
@@ -56,16 +55,17 @@ class Order
 	}
 
 
-	public  function getOrderStatusStr($id){
-		switch ($id){
-			case self::PAID:{
+	public function getOrderStatusStr($id)
+	{
+		switch ($id) {
+			case self::PAID:
+			{
 				return '已支付';
 			}
-			case self::UNPAID:{
+			case self::UNPAID:
+			{
 				return '未支付';
 			}
 		}
 	}
-
-
 }
